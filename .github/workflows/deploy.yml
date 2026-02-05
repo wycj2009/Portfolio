@@ -36,12 +36,12 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Web
-        run: ./gradlew :composeApp:jsBrowserDistribution
+        run: ./gradlew :app:jsBrowserDistribution
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: composeApp/build/dist/js/productionExecutable
+          path: app/build/dist/js/productionExecutable
 
   deploy:
     name: Deploy
