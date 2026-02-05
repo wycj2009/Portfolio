@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" style="display: inline-block;">
+    <circle cx="25" cy="25" r="20" fill="none" stroke="#60a5fa" stroke-width="5" stroke-linecap="round">
+
+        <!-- 전체 회전 애니메이션 (2초 동안 일정하게 회전) -->
+        <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="2s" repeatCount="indefinite" />
+
+        <!-- 선의 길이 변화 (점선이 늘어났다 줄어드는 효과) -->
+        <animate attributeName="stroke-dasharray" values="1,150;90,150;90,150" dur="1.5s" repeatCount="indefinite" />
+
+        <!-- 선의 시작점 이동 (뒤쫓아가는 효과) -->
+        <animate attributeName="stroke-dashoffset" values="0;-35;-124" dur="1.5s" repeatCount="indefinite" />
+    </circle>
+</svg>
