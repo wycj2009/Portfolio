@@ -228,19 +228,15 @@ fun PortfolioTimelineScreen() {
                 .padding(vertical = 48.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // 헤더
             Header()
-
             Spacer(modifier = Modifier.height(64.dp))
-
-            // 타임라인
             Timeline(projects = projects)
         }
     }
 }
 
 @Composable
-fun Header() {
+private fun Header() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(horizontal = 16.dp)
@@ -259,20 +255,13 @@ fun Header() {
                 )
             ).merge(Design.Text.baseStyle)
         )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Text(
-            text = "프로젝트 타임라인 - 아이콘을 탭해보세요",
-            fontSize = 18.sp,
-            color = Color(0xFF6B7280),
-            style = Design.Text.baseStyle
-        )
     }
 }
 
 @Composable
-fun Timeline(projects: List<Project>) {
+private fun Timeline(
+    projects: List<Project>,
+) {
     var selectedProjectId by remember { mutableStateOf<String?>(null) }
 
     // 타임라인 범위 계산
