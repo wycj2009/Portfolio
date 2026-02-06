@@ -58,7 +58,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 
 // 프로젝트 데이터 클래스
-data class Project(
+data class Projectt(
     val id: String,
     val name: String,
     val description: String,
@@ -150,7 +150,7 @@ fun PortfolioTimelineScreen() {
     // 샘플 프로젝트 데이터
     val projects = remember {
         listOf(
-            Project(
+            Projectt(
                 id = "1",
                 name = "이커머스 쇼핑 앱",
                 description = "대형 이커머스 플랫폼의 안드로이드 앱 개발 및 유지보수",
@@ -161,7 +161,7 @@ fun PortfolioTimelineScreen() {
                 icon = "🛒",
                 color = Color(0xFF4F46E5)
             ),
-            Project(
+            Projectt(
                 id = "2",
                 name = "금융 뱅킹 앱",
                 description = "모바일 뱅킹 서비스의 핵심 기능 개발 및 보안 강화",
@@ -172,7 +172,7 @@ fun PortfolioTimelineScreen() {
                 icon = "💳",
                 color = Color(0xFF059669)
             ),
-            Project(
+            Projectt(
                 id = "3",
                 name = "소셜 미디어 플랫폼",
                 description = "실시간 채팅 및 미디어 공유 기능을 포함한 소셜 앱 개발",
@@ -183,7 +183,7 @@ fun PortfolioTimelineScreen() {
                 icon = "💬",
                 color = Color(0xFFDC2626)
             ),
-            Project(
+            Projectt(
                 id = "4",
                 name = "헬스케어 트래킹 앱",
                 description = "건강 데이터 수집 및 분석을 위한 웨어러블 연동 앱",
@@ -194,7 +194,7 @@ fun PortfolioTimelineScreen() {
                 icon = "❤️",
                 color = Color(0xFFEC4899)
             ),
-            Project(
+            Projectt(
                 id = "5",
                 name = "배달 서비스 앱",
                 description = "실시간 위치 추적 및 주문 관리 시스템 구축",
@@ -260,7 +260,7 @@ private fun Header() {
 
 @Composable
 private fun Timeline(
-    projects: List<Project>,
+    projects: List<Projectt>,
 ) {
     var selectedProjectId by remember { mutableStateOf<String?>(null) }
 
@@ -402,7 +402,7 @@ fun BoxScope.TimeMarkerItem(
     marker: TimeMarker,
     minDate: Long,
     totalDuration: Long,
-    selectedProject: Project?
+    selectedProject: Projectt?
 ) {
     val position = remember(marker, minDate, totalDuration) {
         ((marker.timestamp - minDate).toFloat() / totalDuration.toFloat())
@@ -507,7 +507,7 @@ fun BoxScope.TimeMarkerItem(
 
 @Composable
 fun BoxScope.ProjectConnectionLine(
-    project: Project,
+    project: Projectt,
     minDate: Long,
     totalDuration: Long,
     isSelected: Boolean
@@ -550,7 +550,7 @@ fun BoxScope.ProjectConnectionLine(
 
 @Composable
 fun BoxScope.ProjectItem(
-    project: Project,
+    project: Projectt,
     isLeft: Boolean,
     isSelected: Boolean,
     minDate: Long,
@@ -625,7 +625,7 @@ fun BoxScope.ProjectItem(
 
 @Composable
 fun ProjectDetailCard(
-    project: Project,
+    project: Projectt,
     isLeft: Boolean,
     modifier: Modifier = Modifier
 ) {

@@ -1,10 +1,13 @@
 package com.ghost7.portfolio.portfolio
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
@@ -18,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
@@ -34,8 +38,32 @@ fun TimelineScreen() {
         Header()
         Spacer(modifier = Modifier.height(32.dp))
         Timeline(
-            startDate = LocalDate(2010, 1, 1),
-            endDate = LocalDate(2026, 2, 1),
+            projects = listOf(
+                Project(
+                    startDate = LocalDate(
+                        year = 2010,
+                        month = 1,
+                        day = 1,
+                    ),
+                    endDate = LocalDate(
+                        year = 2012,
+                        month = 1,
+                        day = 1,
+                    ),
+                ),
+                Project(
+                    startDate = LocalDate(
+                        year = 2026,
+                        month = 1,
+                        day = 1,
+                    ),
+                    endDate = LocalDate(
+                        year = 2026,
+                        month = 9,
+                        day = 1,
+                    ),
+                ),
+            ),
         )
 
     }
@@ -60,22 +88,24 @@ private fun Header() {
 
 @Composable
 private fun Timeline(
-    startDate: LocalDate,
-    endDate: LocalDate,
+    projects: List<Project>,
     focusedIndex: Int? = null,
 ) {
-    val markers = remember(startDate, endDate) { buildTimelineMarkers(startDate, endDate) }
+    val markers = Marker.fromProjects(projects = projects)
 
-    val markerSpacing = 12.dp
+    val markerSpacing = 20.dp
     val maxYearSize = 18.dp
     val maxMonthSize = 12.dp
+    val timelineWidth = 260.dp
+    val yearTextSize = 16.sp
+    val monthTextSize = 12.sp
     val totalHeight = remember(markers) {
         if (markers.isEmpty()) 0.dp else (markers.size - 1) * markerSpacing + maxYearSize
     }
 
     Box(
         modifier = Modifier
-            .width(maxYearSize)
+            .width(timelineWidth)
             .height(totalHeight)
     ) {
         markers.forEachIndexed { index, marker ->
@@ -85,63 +115,64 @@ private fun Timeline(
             val isFocused = focusedIndex == index
             val dotSize = if (isFocused) maxSize else baseSize
             val color = if (isYearMarker) Color(0xFF2563EB) else Design.Color.gray400
-            val yOffset = markerSpacing * index - (maxSize / 2)
+            val yOffset = markerSpacing * index
 
             Box(
                 modifier = Modifier
-                    .offset(y = yOffset)
-                    .width(maxSize)
+                    .offset(y = yOffset - (maxSize / 2))
+                    .width(timelineWidth)
                     .height(maxSize)
                     .align(Alignment.TopCenter),
                 contentAlignment = Alignment.Center
             ) {
-                Box(
+                val label = if (isYearMarker) "${marker.year}년" else "${marker.month}월"
+                val labelSize = if (isYearMarker) yearTextSize else monthTextSize
+                val labelWeight = if (isYearMarker) FontWeight.SemiBold else FontWeight.Normal
+                val labelColor = if (isYearMarker) Design.Color.gray800 else Design.Color.gray600
+
+                Row(
                     modifier = Modifier
-                        .width(dotSize)
-                        .height(dotSize)
-                        .background(color = color, shape = CircleShape)
-                )
+                        .fillMaxWidth()
+                        .height(maxSize),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(maxSize),
+                        contentAlignment = Alignment.CenterEnd
+                    ) {
+                        Text(
+                            text = label,
+                            fontSize = labelSize,
+                            fontWeight = labelWeight,
+                            color = labelColor,
+                            lineHeight = labelSize
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .width(dotSize)
+                            .height(dotSize)
+                            .background(color = color, shape = CircleShape)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(maxSize),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Text(
+                            text = label,
+                            fontSize = labelSize,
+                            fontWeight = labelWeight,
+                            color = labelColor,
+                            lineHeight = labelSize
+                        )
+                    }
+                }
             }
         }
     }
-}
-
-private data class TimelineMarker(
-    val year: Int,
-    val month: Int,
-)
-
-private fun buildTimelineMarkers(
-    startDate: LocalDate,
-    endDate: LocalDate,
-): List<TimelineMarker> {
-    if (endDate < startDate) return emptyList()
-
-    val startYear = startDate.year
-    val startMonth = startDate.month.ordinal + 1
-    val endYear = endDate.year
-    val endMonth = endDate.month.ordinal + 1
-
-    val markers = mutableListOf<TimelineMarker>().apply {
-        var currentYear = startYear
-        var currentMonth = startMonth
-
-        while (currentYear < endYear || (currentYear == endYear && currentMonth <= endMonth)) {
-            add(
-                TimelineMarker(
-                    year = currentYear,
-                    month = currentMonth,
-                )
-            )
-
-            if (currentMonth == 12) {
-                currentYear++
-                currentMonth = 1
-            } else {
-                currentMonth++
-            }
-        }
-    }
-
-    return markers
 }
