@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -70,6 +71,7 @@ fun TimelineScreen() {
     val focusedDotAndTextColor = Color(0xFF2563EB)
     val yearDotRadius = 10.dp
     val monthDotRadius = 6.dp
+    val dotLineStrokeWidth = 4.dp
     val textSpacing = 20.dp
     val yearTextSize = 16.sp
     val monthTextSize = 12.sp
@@ -87,6 +89,7 @@ fun TimelineScreen() {
         stop = focusedDotAndTextColor,
         fraction = focusedAnimFraction.value,
     )
+    val animDotLineStrokeWidth = dotLineStrokeWidth * focusedAnimFraction.value
 
     Column(
         modifier = Modifier
@@ -153,6 +156,7 @@ fun TimelineScreen() {
 
                 Box(
                     modifier = Modifier
+                        .zIndex(0f)
                         .offset(
                             x = if (index % 2 == 0) markerX - lineWidth else markerX,
                             y = markerY - (lineStrokeWidth * 0.5f),
@@ -181,6 +185,7 @@ fun TimelineScreen() {
                 val dotRadius = if (isYearMarker) yearDotRadius else monthDotRadius
                 Box(
                     modifier = Modifier
+                        .zIndex(2f)
                         .offset(
                             x = markerX - dotRadius,
                             y = markerY - dotRadius,
@@ -195,12 +200,8 @@ fun TimelineScreen() {
 
                 val textSize = if (isYearMarker) yearTextSize else monthTextSize
                 Text(
-                    text = if (isYearMarker) "${marker.year}년" else "${marker.month}월",
-                    style = Design.Text.baseStyle.copy(
-                        fontSize = textSize,
-                        color = color,
-                    ),
                     modifier = Modifier
+                        .zIndex(2f)
                         .offset(
                             x = markerX + textSpacing,
                             y = markerY - (with(density) { textSize.toDp() } * 0.77f),
@@ -209,10 +210,15 @@ fun TimelineScreen() {
                             scaleX = scale
                             scaleY = scale
                             transformOrigin = TransformOrigin(0f, 0.5f)
-                        }
+                        },
+                    text = if (isYearMarker) "${marker.year}년" else "${marker.month}월",
+                    style = Design.Text.baseStyle.copy(
+                        fontSize = textSize,
+                        color = color,
+                    ),
                 )
             }
-            // projectLogo
+            // projectLogo, dotLine
             projects.forEachIndexed { index, project ->
                 val markerIndexRange = projectMarkerIndexRanges[index]
                 val markerX = maxWidth * 0.5f
@@ -228,6 +234,7 @@ fun TimelineScreen() {
 
                 Image(
                     modifier = Modifier
+                        .zIndex(3f)
                         .offset(x = logoX, y = logoY)
                         .size(projectLogoSize)
                         .graphicsLayer {
@@ -259,7 +266,17 @@ fun TimelineScreen() {
                     contentDescription = null,
                 )
 
-                if (hoveredProject == project) {
+                if (isFocused) {
+                    Box(
+                        modifier = Modifier
+                            .zIndex(1f)
+                            .offset(x = markerX - (animDotLineStrokeWidth * 0.5f), y = markerY)
+                            .width(animDotLineStrokeWidth)
+                            .height(markerSpacing * markerIndexRange.run { last - first })
+                            .alpha(animAlpha)
+                            .background(focusedDotAndTextColor)
+                    )
+
                     val detailRect = run {
                         val viewportWidth = maxWidth
                         val viewportHeight = with(density) { (scrollState.maxValue + scrollState.viewportSize).toDp() }
@@ -299,7 +316,7 @@ fun TimelineScreen() {
 
                     Box(
                         modifier = Modifier
-                            .zIndex(1f)
+                            .zIndex(4f)
                             .offset(x = detailRect.left, y = -titleHeight + detailRect.top)
                             .size(width = detailRect.width, height = detailRect.height)
                             .alpha(animAlpha)
