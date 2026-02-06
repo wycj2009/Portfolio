@@ -148,7 +148,8 @@ fun TimelineScreen() {
                 val lineStrokeWidth = markers.getOrNull(projectMarkerIndexRange.first)?.let { marker ->
                     if (marker.month == 1) yearDotRadius * 2 else monthDotRadius * 2
                 } ?: 0.dp
-                val scale = if (hoveredProject == projects[index]) animScale else 1f
+                val isFocused = hoveredProject == projects[index]
+                val scale = if (isFocused) animScale else 1f
 
                 Box(
                     modifier = Modifier
@@ -173,8 +174,9 @@ fun TimelineScreen() {
                 val isYearMarker = marker.month == 1
                 val markerX = maxWidth * 0.5f
                 val markerY = markerSpacing * index
-                val scale = if (index in focusedMarkerIndexRange) animScale else 1f
-                val color = if (index in focusedMarkerIndexRange) animDotAndTextColor else dotAndTextColor
+                val isFocused = index in focusedMarkerIndexRange
+                val scale = if (isFocused) animScale else 1f
+                val color = if (isFocused) animDotAndTextColor else dotAndTextColor
 
                 val dotRadius = if (isYearMarker) yearDotRadius else monthDotRadius
                 Box(
@@ -215,13 +217,14 @@ fun TimelineScreen() {
                 val markerIndexRange = projectMarkerIndexRanges[index]
                 val markerX = maxWidth * 0.5f
                 val markerY = markerSpacing * markerIndexRange.first
-                val scale = if (hoveredProject == project) animScale else 1f
                 val logoX = if (index % 2 == 0) {
                     markerX - projectLogoSpacing - projectLogoSize
                 } else {
                     markerX + projectLogoSpacing
                 }
                 val logoY = markerY - (projectLogoSize * 0.5f)
+                val isFocused = hoveredProject == project
+                val scale = if (isFocused) animScale else 1f
 
                 Image(
                     modifier = Modifier
