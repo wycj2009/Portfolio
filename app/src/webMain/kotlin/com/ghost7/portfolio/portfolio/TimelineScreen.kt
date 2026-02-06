@@ -87,6 +87,8 @@ private fun ColumnScope.Timeline(
     val monthTextSize = 12.sp
     val yearTextColor = Color(0xFF2563EB)
     val monthTextColor = Design.Color.gray500
+    val projectIconSpacing = 50.dp
+    val projectIconSize = 30.dp
     val totalHeight = markerSpacing * (markers.size - 1)
     val focusedScale = 1.25f
 
@@ -122,6 +124,14 @@ private fun ColumnScope.Timeline(
                 textLayoutResult = textLayout,
                 topLeft = Offset(x = textX, y = textY),
             )
+        }
+        projects.forEachIndexed { index, project ->
+            val markerIndexRange = project.getMarkerIndexRange(markers)
+            val markerX = size.width * 0.5f
+            val markerY = with(density) { (markerSpacing * markerIndexRange.first).toPx() }
+            val iconX = markerX + (with(density) { projectIconSpacing.toPx() } * (if (index % 2 == 0) 1f else -1f))
+            val iconY = markerY
+
         }
     }
 }
