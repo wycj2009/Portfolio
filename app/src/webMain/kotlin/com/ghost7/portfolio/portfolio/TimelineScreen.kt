@@ -52,6 +52,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.width
 import androidx.compose.ui.zIndex
 import com.ghost7.portfolio.portfolio.Design.Color.a30
+import com.ghost7.portfolio.portfolio.Design.Color.a40
 import com.ghost7.portfolio.portfolio.Design.Color.a45
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
@@ -77,13 +78,19 @@ fun TimelineScreen() {
     val monthTextSize = 12.sp
     val projectLogoSpacing = 200.dp
     val projectLogoSize = 60.dp
-    val projectLogoLineColor = Design.Color.gray300
+    val projectLogoLineColor = Design.Color.gray500.a30()
+    val focusedProjectLogoLineColor = focusedDotAndTextColor.a40()
     val totalHeight = markerSpacing * (markers.size - 1)
     var hoveredProject: Project? by remember { mutableStateOf(null) }
     val focusedMarkerIndexRange = hoveredProject?.getMarkerIndexRange(markers) ?: IntRange.EMPTY
     val focusedAnimFraction = remember { Animatable(0f) }
     val animScale = 1f + (focusedAnimFraction.value * 0.35f)
     val animAlpha = focusedAnimFraction.value
+    val animProjectLogoLineColor = lerp(
+        start = projectLogoLineColor,
+        stop = focusedProjectLogoLineColor,
+        fraction = focusedAnimFraction.value,
+    )
     val animDotAndTextColor = lerp(
         start = dotAndTextColor,
         stop = focusedDotAndTextColor,
@@ -152,7 +159,6 @@ fun TimelineScreen() {
                     if (marker.month == 1) yearDotRadius * 2 else monthDotRadius * 2
                 } ?: 0.dp
                 val isFocused = hoveredProject == projects[index]
-                val scale = if (isFocused) animScale else 1f
 
                 Box(
                     modifier = Modifier
@@ -163,14 +169,14 @@ fun TimelineScreen() {
                         )
                         .size(width = lineWidth, height = lineStrokeWidth)
                         .graphicsLayer {
-                            scaleY = scale
+                            scaleY = if (isFocused) animScale else 1f
                             transformOrigin = if (index % 2 == 0) {
                                 TransformOrigin(1f, 0.5f)
                             } else {
                                 TransformOrigin(0f, 0.5f)
                             }
                         }
-                        .background(projectLogoLineColor)
+                        .background(if (isFocused) animProjectLogoLineColor else projectLogoLineColor)
                 )
             }
             // marker, text
