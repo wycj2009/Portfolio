@@ -1,10 +1,12 @@
 package com.ghost7.portfolio.portfolio
 
+import androidx.compose.ui.graphics.painter.Painter
 import kotlinx.datetime.LocalDate
 import kotlin.math.max
 import kotlin.math.min
 
 data class Project(
+    val logo: Painter,
     val startDate: LocalDate,
     val endDate: LocalDate,
 ) {

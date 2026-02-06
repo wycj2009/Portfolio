@@ -3,6 +3,7 @@ package com.ghost7.portfolio.portfolio
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -30,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
@@ -44,16 +46,7 @@ import kotlinx.datetime.LocalDate
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TimelineScreen() {
-    val projects = listOf(
-        Project(
-            startDate = LocalDate(year = 2010, month = 1, day = 1),
-            endDate = LocalDate(year = 2012, month = 1, day = 1),
-        ),
-        Project(
-            startDate = LocalDate(year = 2026, month = 2, day = 1),
-            endDate = LocalDate(year = 2026, month = 9, day = 1),
-        ),
-    )
+    val projects = buildProjects()
     val markers = Marker.fromProjects(projects = projects)
     val projectMarkerIndexRanges = projects.map { it.getMarkerIndexRange(markers) }
     val density = LocalDensity.current
@@ -201,7 +194,7 @@ fun TimelineScreen() {
                 }
                 val logoY = markerY - (projectLogoSize * 0.5f)
 
-                Box(
+                Image(
                     modifier = Modifier
                         .offset(x = logoX, y = logoY)
                         .size(projectLogoSize)
@@ -209,6 +202,7 @@ fun TimelineScreen() {
                             scaleX = scale
                             scaleY = scale
                         }
+                        .clip(RoundedCornerShape(10.dp))
                         .background(Design.Color.black)
                         .onPointerEvent(PointerEventType.Enter) { hoveredProject = project }
                         .clickable(
@@ -216,6 +210,8 @@ fun TimelineScreen() {
                             indication = null,
                             onClick = {},
                         ),
+                    painter = project.logo,
+                    contentDescription = null,
                 )
 
                 if (hoveredProject == project) {
@@ -246,4 +242,45 @@ fun TimelineScreen() {
         }
         Spacer(Modifier.height(32.dp))
     }
+}
+
+@Composable
+private fun buildProjects(): List<Project> {
+    return listOf(
+        Project(
+            logo = Design.Icon.logoLifetime,
+            startDate = LocalDate(year = 2017, month = 10, day = 1),
+            endDate = LocalDate(year = 2018, month = 2, day = 1),
+        ),
+        Project(
+            logo = Design.Icon.logoGrowskills,
+            startDate = LocalDate(year = 2019, month = 5, day = 1),
+            endDate = LocalDate(year = 2020, month = 5, day = 1),
+        ),
+        Project(
+            logo = Design.Icon.logoWifion,
+            startDate = LocalDate(year = 2020, month = 8, day = 1),
+            endDate = LocalDate(year = 2021, month = 8, day = 1),
+        ),
+        Project(
+            logo = Design.Icon.logoDietofhell,
+            startDate = LocalDate(year = 2021, month = 3, day = 1),
+            endDate = LocalDate(year = 2021, month = 5, day = 1),
+        ),
+        Project(
+            logo = Design.Icon.logoKakaotalk,
+            startDate = LocalDate(year = 2021, month = 10, day = 1),
+            endDate = LocalDate(year = 2024, month = 6, day = 1),
+        ),
+        Project(
+            logo = Design.Icon.logoChaintodo,
+            startDate = LocalDate(year = 2022, month = 8, day = 1),
+            endDate = LocalDate(year = 2022, month = 11, day = 1),
+        ),
+        Project(
+            logo = Design.Icon.logoKanana,
+            startDate = LocalDate(year = 2024, month = 6, day = 1),
+            endDate = LocalDate(year = 2026, month = 2, day = 1),
+        ),
+    )
 }

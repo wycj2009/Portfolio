@@ -2,11 +2,20 @@ package com.ghost7.portfolio.portfolio
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import org.jetbrains.compose.resources.Font
+import org.jetbrains.compose.resources.painterResource
 import portfolio.app.generated.resources.NotoSansKR_Medium
 import portfolio.app.generated.resources.Res
+import portfolio.app.generated.resources.logo_chaintodo
+import portfolio.app.generated.resources.logo_dietofhell
+import portfolio.app.generated.resources.logo_growskills
+import portfolio.app.generated.resources.logo_kakaotalk
+import portfolio.app.generated.resources.logo_kanana
+import portfolio.app.generated.resources.logo_lifetime
+import portfolio.app.generated.resources.logo_wifion
 
 object Design {
 
@@ -50,5 +59,15 @@ object Design {
     object Text {
         val baseStyle: TextStyle
             @Composable get() = TextStyle(fontFamily = FontFamily(Font(Res.font.NotoSansKR_Medium)))
+    }
+
+    object Icon {
+        val logoLifetime: Painter @Composable get() = painterResource(Res.drawable.logo_lifetime)
+        val logoGrowskills: Painter @Composable get() = painterResource(Res.drawable.logo_growskills)
+        val logoWifion: Painter @Composable get() = painterResource(Res.drawable.logo_wifion)
+        val logoDietofhell: Painter @Composable get() = painterResource(Res.drawable.logo_dietofhell)
+        val logoKakaotalk: Painter @Composable get() = painterResource(Res.drawable.logo_kakaotalk)
+        val logoChaintodo: Painter @Composable get() = painterResource(Res.drawable.logo_chaintodo)
+        val logoKanana: Painter @Composable get() = painterResource(Res.drawable.logo_kanana)
     }
 }
