@@ -87,8 +87,8 @@ private fun ColumnScope.Timeline(
     val monthTextSize = 12.sp
     val yearTextColor = Color(0xFF2563EB)
     val monthTextColor = Design.Color.gray500
-    val focusedScaleFraction = 1.5f
     val totalHeight = markerSpacing * (markers.size - 1)
+    val focusedScale = 1.25f
 
     Canvas(
         modifier = Modifier
@@ -96,11 +96,12 @@ private fun ColumnScope.Timeline(
             .height(totalHeight).background(Design.Color.gray200),
     ) {
         markers.forEachIndexed { index, marker ->
+            val isYearMarker = marker.month == 1
             val x = size.width * 0.5f
             val y = with(density) { (markerSpacing * index).toPx() }
-            val isYearMarker = marker.month == 1
+            val scale = if (false) focusedScale else 1f
 
-            val dotRadius = with(density) { (if (isYearMarker) yearDotRadius else monthDotRadius).toPx() }
+            val dotRadius = with(density) { (if (isYearMarker) yearDotRadius else monthDotRadius).toPx() } * scale
             val dotColor = if (isYearMarker) yearDotColor else monthDotColor
             drawCircle(
                 center = Offset(x = x, y = y),
@@ -111,7 +112,7 @@ private fun ColumnScope.Timeline(
             val textLayout = textMeasurer.measure(
                 text = if (isYearMarker) "${marker.year}년" else "${marker.month}월",
                 style = baseTextStyle.copy(
-                    fontSize = if (isYearMarker) yearTextSize else monthTextSize,
+                    fontSize = (if (isYearMarker) yearTextSize else monthTextSize) * scale,
                     color = if (isYearMarker) yearTextColor else monthTextColor,
                 ),
             )
