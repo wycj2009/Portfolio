@@ -2,6 +2,7 @@ package com.ghost7.portfolio.portfolio
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -73,7 +74,14 @@ fun TimelineScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .clickable(
+                interactionSource = null,
+                indication = null,
+                onClick = {
+                    hoveredProject = null
+                },
+            ),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(Modifier.height(32.dp))
@@ -94,13 +102,14 @@ fun TimelineScreen() {
         BoxWithConstraints(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(totalHeight).background(Design.Color.gray200),
+                .height(totalHeight),
         ) {
             // projectIconLine
             projectMarkerIndexRanges.forEachIndexed { index, projectMarkerIndexRange ->
                 val markerX = maxWidth * 0.5f
                 val markerY = markerSpacing * projectMarkerIndexRange.first
                 val lineWidth = projectIconSpacing + (projectIconSize * 0.5f)
+                val scale = if (hoveredProject == projects[index]) focusedScale else 1f
 
                 Box(
                     modifier = Modifier
@@ -109,6 +118,14 @@ fun TimelineScreen() {
                             y = markerY - (projectIconLineStrokeWidth * 0.5f),
                         )
                         .size(width = lineWidth, height = projectIconLineStrokeWidth)
+                        .graphicsLayer {
+                            scaleY = scale
+                            transformOrigin = if (index % 2 == 0) {
+                                TransformOrigin(1f, 0.5f)
+                            } else {
+                                TransformOrigin(0f, 0.5f)
+                            }
+                        }
                         .background(projectIconLineColor)
                 )
             }
@@ -155,10 +172,12 @@ fun TimelineScreen() {
                         }
                 )
             }
+            // projectIcon
             projects.forEachIndexed { index, project ->
                 val markerIndexRange = projectMarkerIndexRanges[index]
                 val markerX = maxWidth * 0.5f
                 val markerY = markerSpacing * markerIndexRange.first
+                val scale = if (hoveredProject == project) focusedScale else 1f
                 val logoX = if (index % 2 == 0) {
                     markerX - projectIconSpacing - projectIconSize
                 } else {
@@ -170,6 +189,10 @@ fun TimelineScreen() {
                     modifier = Modifier
                         .offset(x = logoX, y = logoY)
                         .size(projectIconSize)
+                        .graphicsLayer {
+                            scaleX = scale
+                            scaleY = scale
+                        }
                         .background(Design.Color.black)
                         .onPointerEvent(PointerEventType.Enter) { hoveredProject = project },
                 )
