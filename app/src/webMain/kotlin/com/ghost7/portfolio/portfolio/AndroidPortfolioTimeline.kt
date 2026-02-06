@@ -257,7 +257,7 @@ fun Header() {
                         Color(0xFFDB2777)
                     )
                 )
-            )
+            ).merge(Design.Text.baseStyle)
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -265,7 +265,8 @@ fun Header() {
         Text(
             text = "프로젝트 타임라인 - 아이콘을 탭해보세요",
             fontSize = 18.sp,
-            color = Color(0xFF6B7280)
+            color = Color(0xFF6B7280),
+            style = Design.Text.baseStyle
         )
     }
 }
@@ -491,6 +492,7 @@ fun BoxScope.TimeMarkerItem(
             } else {
                 Color(0xFF6B7280)
             },
+            style = Design.Text.baseStyle,
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .padding(end = 48.dp)
@@ -506,6 +508,7 @@ fun BoxScope.TimeMarkerItem(
             } else {
                 Color(0xFF6B7280)
             },
+            style = Design.Text.baseStyle,
             modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .padding(start = 48.dp)
@@ -601,7 +604,8 @@ fun BoxScope.ProjectItem(
         ) {
             Text(
                 text = project.icon,
-                fontSize = 28.sp
+                fontSize = 28.sp,
+                style = Design.Text.baseStyle
             )
         }
 
@@ -669,7 +673,7 @@ fun ProjectDetailCard(
                             .shadow(4.dp, RoundedCornerShape(12.dp)),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(text = project.icon, fontSize = 24.sp)
+                        Text(text = project.icon, fontSize = 24.sp, style = Design.Text.baseStyle)
                     }
 
                     Spacer(modifier = Modifier.width(12.dp))
@@ -679,7 +683,8 @@ fun ProjectDetailCard(
                             text = project.name,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFF111827)
+                            color = Color(0xFF111827),
+                            style = Design.Text.baseStyle
                         )
                     }
                 }
@@ -693,6 +698,7 @@ fun ProjectDetailCard(
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
                         color = project.color,
+                        style = Design.Text.baseStyle,
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
                     )
                 }
@@ -705,7 +711,8 @@ fun ProjectDetailCard(
                 text = project.description,
                 fontSize = 14.sp,
                 color = Color(0xFF6B7280),
-                lineHeight = 20.sp
+                lineHeight = 20.sp,
+                style = Design.Text.baseStyle
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -722,6 +729,7 @@ fun ProjectDetailCard(
                     Text(
                         text = "📅",
                         fontSize = 16.sp,
+                        style = Design.Text.baseStyle,
                         modifier = Modifier.padding(end = 8.dp)
                     )
                     Column {
@@ -729,13 +737,15 @@ fun ProjectDetailCard(
                             text = "${DateUtils.formatDate(project.startDate)} - ${DateUtils.formatDate(project.endDate)}",
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Medium,
-                            color = Color(0xFF374151)
+                            color = Color(0xFF374151),
+                            style = Design.Text.baseStyle
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = "총 ${duration}개월",
                             fontSize = 12.sp,
-                            color = Color(0xFF6B7280)
+                            color = Color(0xFF6B7280),
+                            style = Design.Text.baseStyle
                         )
                     }
                 }
@@ -751,6 +761,7 @@ fun ProjectDetailCard(
                 Text(
                     text = "💻",
                     fontSize = 16.sp,
+                    style = Design.Text.baseStyle,
                     modifier = Modifier.padding(end = 8.dp, top = 4.dp)
                 )
                 Column {
@@ -770,6 +781,7 @@ fun ProjectDetailCard(
                                         fontSize = 12.sp,
                                         fontWeight = FontWeight.Medium,
                                         color = project.color,
+                                        style = Design.Text.baseStyle,
                                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
                                     )
                                 }
