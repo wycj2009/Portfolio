@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -41,9 +40,16 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.DpRect
+import androidx.compose.ui.unit.coerceAtLeast
+import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.height
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.width
+import androidx.compose.ui.zIndex
 import com.ghost7.portfolio.portfolio.Design.Color.a30
 import com.ghost7.portfolio.portfolio.Design.Color.a45
 import kotlinx.coroutines.launch
@@ -106,21 +112,29 @@ fun TimelineScreen() {
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Spacer(Modifier.height(32.dp))
-        Text(
-            text = "Android Developer Portfolio",
-            style = Design.Text.baseStyle.copy(
-                fontSize = 40.sp,
-                brush = Brush.linearGradient(
-                    colors = listOf(
-                        Color(0xFF2563EB),
-                        Color(0xFF9333EA),
-                        Color(0xFFDB2777),
+        var titleHeight by remember { mutableStateOf(0.dp) }
+
+        Column(
+            modifier = Modifier.onGloballyPositioned {
+                titleHeight = with(density) { it.size.height.toDp() }
+            },
+        ) {
+            Spacer(Modifier.height(32.dp))
+            Text(
+                text = "Android Developer Portfolio",
+                style = Design.Text.baseStyle.copy(
+                    fontSize = 40.sp,
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            Color(0xFF2563EB),
+                            Color(0xFF9333EA),
+                            Color(0xFFDB2777),
+                        ),
                     ),
-                ),
+                )
             )
-        )
-        Spacer(Modifier.height(64.dp))
+            Spacer(Modifier.height(64.dp))
+        }
         BoxWithConstraints(
             modifier = Modifier
                 .fillMaxWidth()
@@ -243,17 +257,48 @@ fun TimelineScreen() {
                 )
 
                 if (hoveredProject == project) {
-                    val detailWidth = 220.dp
-                    val detailX = if (index % 2 == 0) {
-                        logoX - detailWidth - 20.dp
-                    } else {
-                        logoX + projectLogoSize + 20.dp
+                    val detailRect = run {
+                        val viewportWidth = maxWidth
+                        val viewportHeight = with(density) { (scrollState.maxValue + scrollState.viewportSize).toDp() }
+                        val detailWidth = 500.dp
+                        val detailHeight = 500.dp
+                        val logoCenterX = logoX + (projectLogoSize * 0.5f)
+                        val logoCenterY = titleHeight + logoY + (projectLogoSize * 0.5f)
+
+                        if (index % 2 == 0) {
+                            DpRect(
+                                left = logoCenterX - 50.dp - detailWidth,
+                                top = logoCenterY - (detailHeight * 0.5f),
+                                right = logoCenterX - 50.dp,
+                                bottom = logoCenterY + (detailHeight * 0.5f),
+                            )
+                        } else {
+                            DpRect(
+                                left = logoCenterX + 50.dp,
+                                top = logoCenterY - (detailHeight * 0.5f),
+                                right = logoCenterX + 50.dp + detailWidth,
+                                bottom = logoCenterY + (detailHeight * 0.5f),
+                            )
+                        }.let {
+                            val diff = it.left.coerceAtLeast(0.dp) - it.left
+                            it.copy(left = it.left + diff, right = it.right + diff)
+                        }.let {
+                            val diff = it.right.coerceAtMost(viewportWidth) - it.right
+                            it.copy(left = it.left + diff, right = it.right + diff)
+                        }.let {
+                            val diff = it.top.coerceAtLeast(0.dp) - it.top
+                            it.copy(top = it.top + diff, bottom = it.bottom + diff)
+                        }.let {
+                            val diff = it.bottom.coerceAtMost(viewportHeight) - it.bottom
+                            it.copy(top = it.top + diff, bottom = it.bottom + diff)
+                        }
                     }
 
                     Box(
                         modifier = Modifier
-                            .offset(x = detailX, y = logoY)
-                            .defaultMinSize(minWidth = detailWidth, minHeight = projectLogoSize)
+                            .zIndex(1f)
+                            .offset(x = detailRect.left, y = -titleHeight + detailRect.top)
+                            .size(width = detailRect.width, height = detailRect.height)
                             .alpha(animAlpha)
                             .background(color = Design.Color.gray400, shape = RoundedCornerShape(12.dp))
                             .clickable(
