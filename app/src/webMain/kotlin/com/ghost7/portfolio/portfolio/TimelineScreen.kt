@@ -68,9 +68,9 @@ fun TimelineScreen() {
     val monthTextSize = 12.sp
     val yearTextColor = Color(0xFF2563EB)
     val monthTextColor = Design.Color.gray600
-    val projectIconSpacing = 200.dp
-    val projectIconSize = 60.dp
-    val projectIconLineColor = Design.Color.gray300
+    val projectLogoSpacing = 200.dp
+    val projectLogoSize = 60.dp
+    val projectLogoLineColor = Design.Color.gray300
     val totalHeight = markerSpacing * (markers.size - 1)
     var hoveredProject: Project? by remember { mutableStateOf(null) }
     val focusedMarkerIndexRange = hoveredProject?.getMarkerIndexRange(markers) ?: IntRange.EMPTY
@@ -117,11 +117,11 @@ fun TimelineScreen() {
                 .fillMaxWidth()
                 .height(totalHeight),
         ) {
-            // projectIconLine
+            // projectLogoLine
             projectMarkerIndexRanges.forEachIndexed { index, projectMarkerIndexRange ->
                 val markerX = maxWidth * 0.5f
                 val markerY = markerSpacing * projectMarkerIndexRange.first
-                val lineWidth = projectIconSpacing + (projectIconSize * 0.5f)
+                val lineWidth = projectLogoSpacing + (projectLogoSize * 0.5f)
                 val lineStrokeWidth = markers.getOrNull(projectMarkerIndexRange.first)?.let { marker ->
                     if (marker.month == 1) yearDotRadius * 2 else monthDotRadius * 2
                 } ?: 0.dp
@@ -142,7 +142,7 @@ fun TimelineScreen() {
                                 TransformOrigin(0f, 0.5f)
                             }
                         }
-                        .background(projectIconLineColor)
+                        .background(projectLogoLineColor)
                 )
             }
             // marker, text
@@ -188,23 +188,23 @@ fun TimelineScreen() {
                         }
                 )
             }
-            // projectIcon
+            // projectLogo
             projects.forEachIndexed { index, project ->
                 val markerIndexRange = projectMarkerIndexRanges[index]
                 val markerX = maxWidth * 0.5f
                 val markerY = markerSpacing * markerIndexRange.first
                 val scale = if (hoveredProject == project) focusedScale else 1f
                 val logoX = if (index % 2 == 0) {
-                    markerX - projectIconSpacing - projectIconSize
+                    markerX - projectLogoSpacing - projectLogoSize
                 } else {
-                    markerX + projectIconSpacing
+                    markerX + projectLogoSpacing
                 }
-                val logoY = markerY - (projectIconSize * 0.5f)
+                val logoY = markerY - (projectLogoSize * 0.5f)
 
                 Box(
                     modifier = Modifier
                         .offset(x = logoX, y = logoY)
-                        .size(projectIconSize)
+                        .size(projectLogoSize)
                         .graphicsLayer {
                             scaleX = scale
                             scaleY = scale
@@ -223,13 +223,13 @@ fun TimelineScreen() {
                     val detailX = if (index % 2 == 0) {
                         logoX - detailWidth - 20.dp
                     } else {
-                        logoX + projectIconSize + 20.dp
+                        logoX + projectLogoSize + 20.dp
                     }
 
                     Box(
                         modifier = Modifier
                             .offset(x = detailX, y = logoY)
-                            .defaultMinSize(minWidth = detailWidth, minHeight = projectIconSize)
+                            .defaultMinSize(minWidth = detailWidth, minHeight = projectLogoSize)
                             .alpha(focusedAlpha)
                             .background(color = Design.Color.gray400, shape = RoundedCornerShape(12.dp))
                             .clickable(
