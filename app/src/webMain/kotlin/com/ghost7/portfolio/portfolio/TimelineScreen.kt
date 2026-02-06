@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.platform.LocalDensity
@@ -52,30 +53,33 @@ fun TimelineScreen() {
     val density = LocalDensity.current
 
     val markerSpacing = 30.dp
+    val dotAndTextColor = Design.Color.gray500
+    val focusedDotAndTextColor = Color(0xFF2563EB)
     val yearDotRadius = 10.dp
     val monthDotRadius = 6.dp
-    val yearDotColor = Color(0xFF2563EB)
-    val monthDotColor = Design.Color.gray500
     val textSpacing = 20.dp
     val yearTextSize = 16.sp
     val monthTextSize = 12.sp
-    val yearTextColor = Color(0xFF2563EB)
-    val monthTextColor = Design.Color.gray600
     val projectLogoSpacing = 200.dp
     val projectLogoSize = 60.dp
     val projectLogoLineColor = Design.Color.gray300
     val totalHeight = markerSpacing * (markers.size - 1)
     var hoveredProject: Project? by remember { mutableStateOf(null) }
     val focusedMarkerIndexRange = hoveredProject?.getMarkerIndexRange(markers) ?: IntRange.EMPTY
-    val focusedAnimationFraction by animateFloatAsState(
+    val focusedAnimFraction by animateFloatAsState(
         targetValue = if (hoveredProject == null) 0f else 1f,
         animationSpec = tween(
             durationMillis = 250,
             easing = FastOutSlowInEasing,
         ),
     )
-    val focusedScale = 1f + (focusedAnimationFraction * 0.35f)
-    val focusedAlpha = focusedAnimationFraction
+    val animScale = 1f + (focusedAnimFraction * 0.35f)
+    val animAlpha = focusedAnimFraction
+    val animDotAndTextColor = lerp(
+        start = dotAndTextColor,
+        stop = focusedDotAndTextColor,
+        fraction = focusedAnimFraction,
+    )
 
     Column(
         modifier = Modifier
@@ -118,7 +122,7 @@ fun TimelineScreen() {
                 val lineStrokeWidth = markers.getOrNull(projectMarkerIndexRange.first)?.let { marker ->
                     if (marker.month == 1) yearDotRadius * 2 else monthDotRadius * 2
                 } ?: 0.dp
-                val scale = if (hoveredProject == projects[index]) focusedScale else 1f
+                val scale = if (hoveredProject == projects[index]) animScale else 1f
 
                 Box(
                     modifier = Modifier
@@ -143,10 +147,10 @@ fun TimelineScreen() {
                 val isYearMarker = marker.month == 1
                 val markerX = maxWidth * 0.5f
                 val markerY = markerSpacing * index
-                val scale = if (index in focusedMarkerIndexRange) focusedScale else 1f
+                val scale = if (index in focusedMarkerIndexRange) animScale else 1f
+                val color = if (index in focusedMarkerIndexRange) animDotAndTextColor else dotAndTextColor
 
                 val dotRadius = if (isYearMarker) yearDotRadius else monthDotRadius
-                val dotColor = if (isYearMarker) yearDotColor else monthDotColor
                 Box(
                     modifier = Modifier
                         .offset(
@@ -158,16 +162,15 @@ fun TimelineScreen() {
                             scaleX = scale
                             scaleY = scale
                         }
-                        .background(color = dotColor, shape = CircleShape)
+                        .background(color = color, shape = CircleShape)
                 )
 
                 val textSize = if (isYearMarker) yearTextSize else monthTextSize
-                val textColor = if (isYearMarker) yearTextColor else monthTextColor
                 Text(
                     text = if (isYearMarker) "${marker.year}년" else "${marker.month}월",
                     style = Design.Text.baseStyle.copy(
                         fontSize = textSize,
-                        color = textColor,
+                        color = color,
                     ),
                     modifier = Modifier
                         .offset(
@@ -186,7 +189,7 @@ fun TimelineScreen() {
                 val markerIndexRange = projectMarkerIndexRanges[index]
                 val markerX = maxWidth * 0.5f
                 val markerY = markerSpacing * markerIndexRange.first
-                val scale = if (hoveredProject == project) focusedScale else 1f
+                val scale = if (hoveredProject == project) animScale else 1f
                 val logoX = if (index % 2 == 0) {
                     markerX - projectLogoSpacing - projectLogoSize
                 } else {
@@ -203,7 +206,6 @@ fun TimelineScreen() {
                             scaleY = scale
                         }
                         .clip(RoundedCornerShape(10.dp))
-                        .background(Design.Color.black)
                         .onPointerEvent(PointerEventType.Enter) { hoveredProject = project }
                         .clickable(
                             interactionSource = null,
@@ -226,7 +228,7 @@ fun TimelineScreen() {
                         modifier = Modifier
                             .offset(x = detailX, y = logoY)
                             .defaultMinSize(minWidth = detailWidth, minHeight = projectLogoSize)
-                            .alpha(focusedAlpha)
+                            .alpha(animAlpha)
                             .background(color = Design.Color.gray400, shape = RoundedCornerShape(12.dp))
                             .clickable(
                                 interactionSource = null,
