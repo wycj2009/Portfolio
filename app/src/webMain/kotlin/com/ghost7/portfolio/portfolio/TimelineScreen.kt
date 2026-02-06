@@ -1,7 +1,7 @@
 package com.ghost7.portfolio.portfolio
 
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -42,6 +43,7 @@ import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -51,6 +53,7 @@ fun TimelineScreen() {
     val markers = Marker.fromProjects(projects = projects)
     val projectMarkerIndexRanges = projects.map { it.getMarkerIndexRange(markers) }
     val density = LocalDensity.current
+    val coroutineScope = rememberCoroutineScope()
 
     val markerSpacing = 30.dp
     val dotAndTextColor = Design.Color.gray500
@@ -66,19 +69,13 @@ fun TimelineScreen() {
     val totalHeight = markerSpacing * (markers.size - 1)
     var hoveredProject: Project? by remember { mutableStateOf(null) }
     val focusedMarkerIndexRange = hoveredProject?.getMarkerIndexRange(markers) ?: IntRange.EMPTY
-    val focusedAnimFraction by animateFloatAsState(
-        targetValue = if (hoveredProject == null) 0f else 1f,
-        animationSpec = tween(
-            durationMillis = 250,
-            easing = FastOutSlowInEasing,
-        ),
-    )
-    val animScale = 1f + (focusedAnimFraction * 0.35f)
-    val animAlpha = focusedAnimFraction
+    val focusedAnimFraction = remember { Animatable(0f) }
+    val animScale = 1f + (focusedAnimFraction.value * 0.35f)
+    val animAlpha = focusedAnimFraction.value
     val animDotAndTextColor = lerp(
         start = dotAndTextColor,
         stop = focusedDotAndTextColor,
-        fraction = focusedAnimFraction,
+        fraction = focusedAnimFraction.value,
     )
 
     Column(
@@ -89,7 +86,10 @@ fun TimelineScreen() {
                 interactionSource = null,
                 indication = null,
                 onClick = {
-                    hoveredProject = null
+                    coroutineScope.launch {
+                        hoveredProject = null
+                        focusedAnimFraction.snapTo(0f)
+                    }
                 },
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -206,7 +206,21 @@ fun TimelineScreen() {
                             scaleY = scale
                         }
                         .clip(RoundedCornerShape(10.dp))
-                        .onPointerEvent(PointerEventType.Enter) { hoveredProject = project }
+                        .onPointerEvent(PointerEventType.Enter) {
+                            if (hoveredProject != project) {
+                                coroutineScope.launch {
+                                    hoveredProject = project
+                                    focusedAnimFraction.snapTo(0f)
+                                    focusedAnimFraction.animateTo(
+                                        targetValue = 1f,
+                                        animationSpec = tween(
+                                            durationMillis = 300,
+                                            easing = CubicBezierEasing(0.2f, 0.0f, 0f, 1.0f),
+                                        ),
+                                    )
+                                }
+                            }
+                        }
                         .clickable(
                             interactionSource = null,
                             indication = null,
