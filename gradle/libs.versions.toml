@@ -3,6 +3,7 @@ kotlin = "2.3.0"
 cmp = "1.10.0"
 
 [libraries]
+org-jetbrains-kotlinx_kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.7.1" }
 
 [plugins]
 org-jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
