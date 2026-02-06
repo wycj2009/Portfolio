@@ -300,13 +300,13 @@ fun TimelineScreen() {
                             .offset(x = detailRect.left, y = -titleHeight + detailRect.top)
                             .size(width = detailRect.width, height = detailRect.height)
                             .alpha(animAlpha)
-                            .background(color = Design.Color.gray400, shape = RoundedCornerShape(12.dp))
+                            .background(color = Design.Color.gray400, shape = RoundedCornerShape(8.dp))
                             .clickable(
                                 interactionSource = null,
                                 indication = null,
                                 onClick = {},
                             )
-                            .padding(horizontal = 14.dp, vertical = 10.dp),
+                            .padding(horizontal = 12.dp, vertical = 12.dp),
                     ) {
                         // TODO
                     }
