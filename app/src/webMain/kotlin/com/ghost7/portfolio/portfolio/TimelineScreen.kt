@@ -298,5 +298,10 @@ private fun buildProjects(): List<Project> {
             startDate = LocalDate(year = 2024, month = 6, day = 1),
             endDate = LocalDate(year = 2026, month = 2, day = 1),
         ),
+        Project(
+            logo = Design.Icon.logoArtsharehub,
+            startDate = LocalDate(year = 2025, month = 12, day = 1),
+            endDate = LocalDate(year = 2026, month = 2, day = 1),
+        ),
     )
 }

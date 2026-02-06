@@ -9,6 +9,7 @@ import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 import portfolio.app.generated.resources.NotoSansKR_Medium
 import portfolio.app.generated.resources.Res
+import portfolio.app.generated.resources.logo_artsharehub
 import portfolio.app.generated.resources.logo_chaintodo
 import portfolio.app.generated.resources.logo_dietofhell
 import portfolio.app.generated.resources.logo_growskills
@@ -69,5 +70,6 @@ object Design {
         val logoKakaotalk: Painter @Composable get() = painterResource(Res.drawable.logo_kakaotalk)
         val logoChaintodo: Painter @Composable get() = painterResource(Res.drawable.logo_chaintodo)
         val logoKanana: Painter @Composable get() = painterResource(Res.drawable.logo_kanana)
+        val logoArtsharehub: Painter @Composable get() = painterResource(Res.drawable.logo_artsharehub)
     }
 }
