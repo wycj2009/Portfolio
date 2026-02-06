@@ -18,6 +18,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.datetime.LocalDate
@@ -72,14 +74,19 @@ private fun ColumnScope.Timeline(
 ) {
     val markers = Marker.fromProjects(projects = projects)
     val density = LocalDensity.current
+    val textMeasurer = rememberTextMeasurer()
+    val baseTextStyle = Design.Text.baseStyle
 
-    val markerSpacing = 28.dp
-    val yearDotSize = 10.dp
-    val monthDotSize = 6.dp
+    val markerSpacing = 30.dp
+    val yearDotRadius = 10.dp
+    val monthDotRadius = 6.dp
     val yearDotColor = Color(0xFF2563EB)
-    val monthDotColor = Design.Color.gray400
+    val monthDotColor = Design.Color.gray500
+    val textSpacing = 20.dp
     val yearTextSize = 16.sp
     val monthTextSize = 12.sp
+    val yearTextColor = Color(0xFF2563EB)
+    val monthTextColor = Design.Color.gray500
     val focusedScaleFraction = 1.5f
     val totalHeight = markerSpacing * (markers.size - 1)
 
@@ -89,16 +96,30 @@ private fun ColumnScope.Timeline(
             .height(totalHeight).background(Design.Color.gray200),
     ) {
         markers.forEachIndexed { index, marker ->
-            val xOffset = size.width * 0.5f
-            val yOffset = with(density) { (markerSpacing * index).toPx() }
+            val x = size.width * 0.5f
+            val y = with(density) { (markerSpacing * index).toPx() }
             val isYearMarker = marker.month == 1
-            val dotSize = with(density) { (if (isYearMarker) yearDotSize else monthDotSize).toPx() }
-            val dotColor = if (isYearMarker) yearDotColor else monthDotColor
 
+            val dotRadius = with(density) { (if (isYearMarker) yearDotRadius else monthDotRadius).toPx() }
+            val dotColor = if (isYearMarker) yearDotColor else monthDotColor
             drawCircle(
-                center = Offset(x = xOffset, y = yOffset),
-                radius = dotSize,
+                center = Offset(x = x, y = y),
+                radius = dotRadius,
                 color = dotColor,
+            )
+
+            val textLayout = textMeasurer.measure(
+                text = if (isYearMarker) "${marker.year}년" else "${marker.month}월",
+                style = baseTextStyle.copy(
+                    fontSize = if (isYearMarker) yearTextSize else monthTextSize,
+                    color = if (isYearMarker) yearTextColor else monthTextColor,
+                ),
+            )
+            val textX = x + with(density) { textSpacing.toPx() }
+            val textY = y - (textLayout.size.height * 0.5f)
+            drawText(
+                textLayoutResult = textLayout,
+                topLeft = Offset(x = textX, y = textY),
             )
         }
     }
