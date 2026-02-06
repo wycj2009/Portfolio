@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -19,6 +20,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.times
 import kotlinx.datetime.LocalDate
 
 @Composable
@@ -62,21 +64,35 @@ private fun Timeline(
     endDate: LocalDate,
     focusedIndex: Int? = null,
 ) {
-    val markers = remember(startDate, endDate) {
-        buildTimelineMarkers(startDate, endDate)
+    val markers = remember(startDate, endDate) { buildTimelineMarkers(startDate, endDate) }
+
+    val markerSpacing = 12.dp
+    val maxYearSize = 18.dp
+    val maxMonthSize = 12.dp
+    val totalHeight = remember(markers) {
+        if (markers.isEmpty()) 0.dp else (markers.size - 1) * markerSpacing + maxYearSize
     }
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Box(
+        modifier = Modifier
+            .width(maxYearSize)
+            .height(totalHeight)
+    ) {
         markers.forEachIndexed { index, marker ->
-            val baseSize = if (marker.isYear) 14.dp else 8.dp
-            val maxSize = if (marker.isYear) 18.dp else 12.dp
+            val isYearMarker = marker.month == 1 || index == 0
+            val baseSize = if (isYearMarker) 14.dp else 8.dp
+            val maxSize = if (isYearMarker) maxYearSize else maxMonthSize
             val isFocused = focusedIndex == index
             val dotSize = if (isFocused) maxSize else baseSize
-            val color = if (marker.isYear) Color(0xFF2563EB) else Design.Color.gray400
+            val color = if (isYearMarker) Color(0xFF2563EB) else Design.Color.gray400
+            val yOffset = markerSpacing * index - (maxSize / 2)
+
             Box(
                 modifier = Modifier
+                    .offset(y = yOffset)
                     .width(maxSize)
-                    .height(maxSize),
+                    .height(maxSize)
+                    .align(Alignment.TopCenter),
                 contentAlignment = Alignment.Center
             ) {
                 Box(
@@ -85,9 +101,6 @@ private fun Timeline(
                         .height(dotSize)
                         .background(color = color, shape = CircleShape)
                 )
-                if (index != markers.lastIndex) {
-                    Spacer(modifier = Modifier.height(12.dp))
-                }
             }
         }
     }
