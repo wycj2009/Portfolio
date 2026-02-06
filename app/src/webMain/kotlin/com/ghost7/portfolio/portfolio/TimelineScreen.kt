@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,55 +34,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.datetime.LocalDate
 
-@Composable
-fun TimelineScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Spacer(Modifier.height(32.dp))
-        Header()
-        Spacer(Modifier.height(64.dp))
-        Timeline(
-            projects = listOf(
-                Project(
-                    startDate = LocalDate(year = 2010, month = 1, day = 1),
-                    endDate = LocalDate(year = 2012, month = 1, day = 1),
-                ),
-                Project(
-                    startDate = LocalDate(year = 2026, month = 1, day = 1),
-                    endDate = LocalDate(year = 2026, month = 9, day = 1),
-                ),
-            ),
-        )
-        Spacer(Modifier.height(32.dp))
-    }
-}
-
-@Composable
-private fun ColumnScope.Header() {
-    Text(
-        text = "Android Developer Portfolio",
-        style = Design.Text.baseStyle.copy(
-            fontSize = 40.sp,
-            brush = Brush.linearGradient(
-                colors = listOf(
-                    Color(0xFF2563EB),
-                    Color(0xFF9333EA),
-                    Color(0xFFDB2777),
-                ),
-            ),
-        )
-    )
-}
-
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun ColumnScope.Timeline(
-    projects: List<Project>,
-) {
+fun TimelineScreen() {
+    val projects = listOf(
+        Project(
+            startDate = LocalDate(year = 2010, month = 1, day = 1),
+            endDate = LocalDate(year = 2012, month = 1, day = 1),
+        ),
+        Project(
+            startDate = LocalDate(year = 2026, month = 1, day = 1),
+            endDate = LocalDate(year = 2026, month = 9, day = 1),
+        ),
+    )
     val markers = Marker.fromProjects(projects = projects)
     val projectMarkerIndexRanges = projects.map { it.getMarkerIndexRange(markers) }
     val density = LocalDensity.current
@@ -107,88 +70,111 @@ private fun ColumnScope.Timeline(
     val focusedMarkerIndexRange = hoveredProject?.getMarkerIndexRange(markers) ?: IntRange.EMPTY
     val focusedScale by animateFloatAsState(if (hoveredProject == null) 1f else 1.4f)
 
-    BoxWithConstraints(
+    Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(totalHeight).background(Design.Color.gray200),
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // projectIconLine
-        projectMarkerIndexRanges.forEachIndexed { index, projectMarkerIndexRange ->
-            val markerX = maxWidth * 0.5f
-            val markerY = markerSpacing * projectMarkerIndexRange.first
-            val lineWidth = projectIconSpacing + (projectIconSize * 0.5f)
-
-            Box(
-                modifier = Modifier
-                    .offset(
-                        x = if (index % 2 == 0) markerX - lineWidth else markerX,
-                        y = markerY - (projectIconLineStrokeWidth * 0.5f),
-                    )
-                    .size(width = lineWidth, height = projectIconLineStrokeWidth)
-                    .background(projectIconLineColor)
-            )
-        }
-        // marker, text
-        markers.forEachIndexed { index, marker ->
-            val isYearMarker = marker.month == 1
-            val markerX = maxWidth * 0.5f
-            val markerY = markerSpacing * index
-            val scale = if (index in focusedMarkerIndexRange) focusedScale else 1f
-
-            val dotRadius = if (isYearMarker) yearDotRadius else monthDotRadius
-            val dotColor = if (isYearMarker) yearDotColor else monthDotColor
-            Box(
-                modifier = Modifier
-                    .offset(
-                        x = markerX - dotRadius,
-                        y = markerY - dotRadius,
-                    )
-                    .size(dotRadius * 2f)
-                    .graphicsLayer {
-                        scaleX = scale
-                        scaleY = scale
-                    }
-                    .background(color = dotColor, shape = CircleShape)
-            )
-
-            val textSize = if (isYearMarker) yearTextSize else monthTextSize
-            val textColor = if (isYearMarker) yearTextColor else monthTextColor
-            Text(
-                text = if (isYearMarker) "${marker.year}년" else "${marker.month}월",
-                style = Design.Text.baseStyle.copy(
-                    fontSize = textSize,
-                    color = textColor,
+        Spacer(Modifier.height(32.dp))
+        Text(
+            text = "Android Developer Portfolio",
+            style = Design.Text.baseStyle.copy(
+                fontSize = 40.sp,
+                brush = Brush.linearGradient(
+                    colors = listOf(
+                        Color(0xFF2563EB),
+                        Color(0xFF9333EA),
+                        Color(0xFFDB2777),
+                    ),
                 ),
-                modifier = Modifier
-                    .offset(
-                        x = markerX + textSpacing,
-                        y = markerY - (with(density) { textSize.toDp() } * 0.77f),
-                    )
-                    .graphicsLayer {
-                        scaleX = scale
-                        scaleY = scale
-                        transformOrigin = TransformOrigin(0f, 0.5f)
-                    }
             )
-        }
-        projects.forEachIndexed { index, project ->
-            val markerIndexRange = projectMarkerIndexRanges[index]
-            val markerX = maxWidth * 0.5f
-            val markerY = markerSpacing * markerIndexRange.first
-            val logoX = if (index % 2 == 0) {
-                markerX - projectIconSpacing - projectIconSize
-            } else {
-                markerX + projectIconSpacing
-            }
-            val logoY = markerY - (projectIconSize * 0.5f)
+        )
+        Spacer(Modifier.height(64.dp))
+        BoxWithConstraints(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(totalHeight).background(Design.Color.gray200),
+        ) {
+            // projectIconLine
+            projectMarkerIndexRanges.forEachIndexed { index, projectMarkerIndexRange ->
+                val markerX = maxWidth * 0.5f
+                val markerY = markerSpacing * projectMarkerIndexRange.first
+                val lineWidth = projectIconSpacing + (projectIconSize * 0.5f)
 
-            Box(
-                modifier = Modifier
-                    .offset(x = logoX, y = logoY)
-                    .size(projectIconSize)
-                    .background(Design.Color.black)
-                    .onPointerEvent(PointerEventType.Enter) { hoveredProject = project },
-            )
+                Box(
+                    modifier = Modifier
+                        .offset(
+                            x = if (index % 2 == 0) markerX - lineWidth else markerX,
+                            y = markerY - (projectIconLineStrokeWidth * 0.5f),
+                        )
+                        .size(width = lineWidth, height = projectIconLineStrokeWidth)
+                        .background(projectIconLineColor)
+                )
+            }
+            // marker, text
+            markers.forEachIndexed { index, marker ->
+                val isYearMarker = marker.month == 1
+                val markerX = maxWidth * 0.5f
+                val markerY = markerSpacing * index
+                val scale = if (index in focusedMarkerIndexRange) focusedScale else 1f
+
+                val dotRadius = if (isYearMarker) yearDotRadius else monthDotRadius
+                val dotColor = if (isYearMarker) yearDotColor else monthDotColor
+                Box(
+                    modifier = Modifier
+                        .offset(
+                            x = markerX - dotRadius,
+                            y = markerY - dotRadius,
+                        )
+                        .size(dotRadius * 2f)
+                        .graphicsLayer {
+                            scaleX = scale
+                            scaleY = scale
+                        }
+                        .background(color = dotColor, shape = CircleShape)
+                )
+
+                val textSize = if (isYearMarker) yearTextSize else monthTextSize
+                val textColor = if (isYearMarker) yearTextColor else monthTextColor
+                Text(
+                    text = if (isYearMarker) "${marker.year}년" else "${marker.month}월",
+                    style = Design.Text.baseStyle.copy(
+                        fontSize = textSize,
+                        color = textColor,
+                    ),
+                    modifier = Modifier
+                        .offset(
+                            x = markerX + textSpacing,
+                            y = markerY - (with(density) { textSize.toDp() } * 0.77f),
+                        )
+                        .graphicsLayer {
+                            scaleX = scale
+                            scaleY = scale
+                            transformOrigin = TransformOrigin(0f, 0.5f)
+                        }
+                )
+            }
+            projects.forEachIndexed { index, project ->
+                val markerIndexRange = projectMarkerIndexRanges[index]
+                val markerX = maxWidth * 0.5f
+                val markerY = markerSpacing * markerIndexRange.first
+                val logoX = if (index % 2 == 0) {
+                    markerX - projectIconSpacing - projectIconSize
+                } else {
+                    markerX + projectIconSpacing
+                }
+                val logoY = markerY - (projectIconSize * 0.5f)
+
+                Box(
+                    modifier = Modifier
+                        .offset(x = logoX, y = logoY)
+                        .size(projectIconSize)
+                        .background(Design.Color.black)
+                        .onPointerEvent(PointerEventType.Enter) { hoveredProject = project },
+                )
+            }
         }
+        Spacer(Modifier.height(32.dp))
     }
 }
