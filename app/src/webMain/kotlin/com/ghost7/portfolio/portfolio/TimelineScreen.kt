@@ -266,7 +266,7 @@ private fun buildProjects(): List<Project> {
         Project(
             logo = Design.Icon.logoLifetime,
             startDate = LocalDate(year = 2017, month = 10, day = 1),
-            endDate = LocalDate(year = 2018, month = 2, day = 1),
+            endDate = LocalDate(year = 2018, month = 5, day = 1),
         ),
         Project(
             logo = Design.Icon.logoGrowskills,
