@@ -1,6 +1,6 @@
 package com.ghost7.portfolio.portfolio
 
-import androidx.compose.foundation.Canvas
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -13,17 +13,24 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.drawText
-import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.datetime.LocalDate
@@ -72,6 +79,7 @@ private fun ColumnScope.Header() {
     )
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun ColumnScope.Timeline(
     projects: List<Project>,
@@ -79,8 +87,6 @@ private fun ColumnScope.Timeline(
     val markers = Marker.fromProjects(projects = projects)
     val projectMarkerIndexRanges = projects.map { it.getMarkerIndexRange(markers) }
     val density = LocalDensity.current
-    val textMeasurer = rememberTextMeasurer()
-    val baseTextStyle = Design.Text.baseStyle
 
     val markerSpacing = 30.dp
     val yearDotRadius = 10.dp
@@ -97,60 +103,73 @@ private fun ColumnScope.Timeline(
     val projectIconLineStrokeWidth = 2.dp
     val projectIconLineColor = Design.Color.gray300
     val totalHeight = markerSpacing * (markers.size - 1)
-    val focusedScale = 1.25f
+    var hoveredProject: Project? by remember { mutableStateOf(null) }
+    val focusedMarkerIndexRange = hoveredProject?.getMarkerIndexRange(markers) ?: IntRange.EMPTY
+    val focusedScale by animateFloatAsState(if (hoveredProject == null) 1f else 1.4f)
 
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxWidth()
             .height(totalHeight).background(Design.Color.gray200),
     ) {
-        Canvas(modifier = Modifier.fillMaxSize()) {
-            projectMarkerIndexRanges.forEachIndexed { index, projectMarkerIndexRange ->
-                val markerX = size.width * 0.5f
-                val markerY = with(density) { (markerSpacing * projectMarkerIndexRange.first).toPx() }
+        // projectIconLine
+        projectMarkerIndexRanges.forEachIndexed { index, projectMarkerIndexRange ->
+            val markerX = maxWidth * 0.5f
+            val markerY = markerSpacing * projectMarkerIndexRange.first
+            val lineWidth = projectIconSpacing + (projectIconSize * 0.5f)
 
-                drawLine(
-                    color = projectIconLineColor,
-                    start = Offset(
-                        x = if (index % 2 == 0) {
-                            markerX - with(density) { (projectIconSpacing + (projectIconSize * 0.5f)).toPx() }
-                        } else {
-                            markerX + with(density) { (projectIconSpacing + (projectIconSize * 0.5f)).toPx() }
-                        },
-                        y = markerY,
-                    ),
-                    end = Offset(x = markerX, y = markerY),
-                    strokeWidth = with(density) { projectIconLineStrokeWidth.toPx() }
-                )
-            }
-            markers.forEachIndexed { index, marker ->
-                val isYearMarker = marker.month == 1
-                val x = size.width * 0.5f
-                val y = with(density) { (markerSpacing * index).toPx() }
-                val scale = if (false) focusedScale else 1f
+            Box(
+                modifier = Modifier
+                    .offset(
+                        x = if (index % 2 == 0) markerX - lineWidth else markerX,
+                        y = markerY - (projectIconLineStrokeWidth * 0.5f),
+                    )
+                    .size(width = lineWidth, height = projectIconLineStrokeWidth)
+                    .background(projectIconLineColor)
+            )
+        }
+        // marker, text
+        markers.forEachIndexed { index, marker ->
+            val isYearMarker = marker.month == 1
+            val markerX = maxWidth * 0.5f
+            val markerY = markerSpacing * index
+            val scale = if (index in focusedMarkerIndexRange) focusedScale else 1f
 
-                val dotRadius = with(density) { (if (isYearMarker) yearDotRadius else monthDotRadius).toPx() } * scale
-                val dotColor = if (isYearMarker) yearDotColor else monthDotColor
-                drawCircle(
-                    center = Offset(x = x, y = y),
-                    radius = dotRadius,
-                    color = dotColor,
-                )
+            val dotRadius = if (isYearMarker) yearDotRadius else monthDotRadius
+            val dotColor = if (isYearMarker) yearDotColor else monthDotColor
+            Box(
+                modifier = Modifier
+                    .offset(
+                        x = markerX - dotRadius,
+                        y = markerY - dotRadius,
+                    )
+                    .size(dotRadius * 2f)
+                    .graphicsLayer {
+                        scaleX = scale
+                        scaleY = scale
+                    }
+                    .background(color = dotColor, shape = CircleShape)
+            )
 
-                val textLayout = textMeasurer.measure(
-                    text = if (isYearMarker) "${marker.year}년" else "${marker.month}월",
-                    style = baseTextStyle.copy(
-                        fontSize = (if (isYearMarker) yearTextSize else monthTextSize) * scale,
-                        color = if (isYearMarker) yearTextColor else monthTextColor,
-                    ),
-                )
-                val textX = x + with(density) { textSpacing.toPx() }
-                val textY = y - (textLayout.size.height * 0.5f)
-                drawText(
-                    textLayoutResult = textLayout,
-                    topLeft = Offset(x = textX, y = textY),
-                )
-            }
+            val textSize = if (isYearMarker) yearTextSize else monthTextSize
+            val textColor = if (isYearMarker) yearTextColor else monthTextColor
+            Text(
+                text = if (isYearMarker) "${marker.year}년" else "${marker.month}월",
+                style = Design.Text.baseStyle.copy(
+                    fontSize = textSize,
+                    color = textColor,
+                ),
+                modifier = Modifier
+                    .offset(
+                        x = markerX + textSpacing,
+                        y = markerY - (with(density) { textSize.toDp() } * 0.77f),
+                    )
+                    .graphicsLayer {
+                        scaleX = scale
+                        scaleY = scale
+                        transformOrigin = TransformOrigin(0f, 0.5f)
+                    }
+            )
         }
         projects.forEachIndexed { index, project ->
             val markerIndexRange = projectMarkerIndexRanges[index]
@@ -168,6 +187,7 @@ private fun ColumnScope.Timeline(
                     .offset(x = logoX, y = logoY)
                     .size(projectIconSize)
                     .background(Design.Color.black)
+                    .onPointerEvent(PointerEventType.Enter) { hoveredProject = project },
             )
         }
     }
