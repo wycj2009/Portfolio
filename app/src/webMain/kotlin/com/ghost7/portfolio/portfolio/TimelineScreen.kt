@@ -1,19 +1,24 @@
 package com.ghost7.portfolio.portfolio
 
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
@@ -68,7 +74,15 @@ fun TimelineScreen() {
     val totalHeight = markerSpacing * (markers.size - 1)
     var hoveredProject: Project? by remember { mutableStateOf(null) }
     val focusedMarkerIndexRange = hoveredProject?.getMarkerIndexRange(markers) ?: IntRange.EMPTY
-    val focusedScale by animateFloatAsState(if (hoveredProject == null) 1f else 1.4f)
+    val focusedAnimationFraction by animateFloatAsState(
+        targetValue = if (hoveredProject == null) 0f else 1f,
+        animationSpec = tween(
+            durationMillis = 250,
+            easing = FastOutSlowInEasing,
+        ),
+    )
+    val focusedScale = 1f + (focusedAnimationFraction * 0.35f)
+    val focusedAlpha = focusedAnimationFraction
 
     Column(
         modifier = Modifier
@@ -196,8 +210,38 @@ fun TimelineScreen() {
                             scaleY = scale
                         }
                         .background(Design.Color.black)
-                        .onPointerEvent(PointerEventType.Enter) { hoveredProject = project },
+                        .onPointerEvent(PointerEventType.Enter) { hoveredProject = project }
+                        .clickable(
+                            interactionSource = null,
+                            indication = null,
+                            onClick = {},
+                        ),
                 )
+
+                if (hoveredProject == project) {
+                    val detailWidth = 220.dp
+                    val detailX = if (index % 2 == 0) {
+                        logoX - detailWidth - 20.dp
+                    } else {
+                        logoX + projectIconSize + 20.dp
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .offset(x = detailX, y = logoY)
+                            .defaultMinSize(minWidth = detailWidth, minHeight = projectIconSize)
+                            .alpha(focusedAlpha)
+                            .background(color = Design.Color.gray400, shape = RoundedCornerShape(12.dp))
+                            .clickable(
+                                interactionSource = null,
+                                indication = null,
+                                onClick = {},
+                            )
+                            .padding(horizontal = 14.dp, vertical = 10.dp),
+                    ) {
+                        // TODO
+                    }
+                }
             }
         }
         Spacer(Modifier.height(32.dp))
