@@ -44,7 +44,7 @@ fun TimelineScreen() {
             endDate = LocalDate(year = 2012, month = 1, day = 1),
         ),
         Project(
-            startDate = LocalDate(year = 2026, month = 1, day = 1),
+            startDate = LocalDate(year = 2026, month = 2, day = 1),
             endDate = LocalDate(year = 2026, month = 9, day = 1),
         ),
     )
@@ -61,10 +61,9 @@ fun TimelineScreen() {
     val yearTextSize = 16.sp
     val monthTextSize = 12.sp
     val yearTextColor = Color(0xFF2563EB)
-    val monthTextColor = Design.Color.gray500
-    val projectIconSpacing = 150.dp
+    val monthTextColor = Design.Color.gray600
+    val projectIconSpacing = 200.dp
     val projectIconSize = 60.dp
-    val projectIconLineStrokeWidth = 2.dp
     val projectIconLineColor = Design.Color.gray300
     val totalHeight = markerSpacing * (markers.size - 1)
     var hoveredProject: Project? by remember { mutableStateOf(null) }
@@ -109,15 +108,18 @@ fun TimelineScreen() {
                 val markerX = maxWidth * 0.5f
                 val markerY = markerSpacing * projectMarkerIndexRange.first
                 val lineWidth = projectIconSpacing + (projectIconSize * 0.5f)
+                val lineStrokeWidth = markers.getOrNull(projectMarkerIndexRange.first)?.let { marker ->
+                    if (marker.month == 1) yearDotRadius * 2 else monthDotRadius * 2
+                } ?: 0.dp
                 val scale = if (hoveredProject == projects[index]) focusedScale else 1f
 
                 Box(
                     modifier = Modifier
                         .offset(
                             x = if (index % 2 == 0) markerX - lineWidth else markerX,
-                            y = markerY - (projectIconLineStrokeWidth * 0.5f),
+                            y = markerY - (lineStrokeWidth * 0.5f),
                         )
-                        .size(width = lineWidth, height = projectIconLineStrokeWidth)
+                        .size(width = lineWidth, height = lineStrokeWidth)
                         .graphicsLayer {
                             scaleY = scale
                             transformOrigin = if (index % 2 == 0) {
