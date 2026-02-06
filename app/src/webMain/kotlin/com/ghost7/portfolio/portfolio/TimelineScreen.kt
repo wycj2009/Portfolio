@@ -9,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,6 +44,8 @@ import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ghost7.portfolio.portfolio.Design.Color.a30
+import com.ghost7.portfolio.portfolio.Design.Color.a45
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 
@@ -54,6 +57,7 @@ fun TimelineScreen() {
     val projectMarkerIndexRanges = projects.map { it.getMarkerIndexRange(markers) }
     val density = LocalDensity.current
     val coroutineScope = rememberCoroutineScope()
+    val scrollState = rememberScrollState()
 
     val markerSpacing = 30.dp
     val dotAndTextColor = Design.Color.gray500
@@ -81,7 +85,15 @@ fun TimelineScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(scrollState)
+            .verticalScrollbar(
+                adapter = scrollState.rememberScrollStateVerticalScrollbarAdapter(),
+                width = 15.dp,
+                innerPadding = PaddingValues(horizontal = 3.dp, vertical = 3.dp),
+                color = Design.Color.black.a30(),
+                pressedColor = Design.Color.black.a45(),
+                dragEnabled = true,
+            )
             .clickable(
                 interactionSource = null,
                 indication = null,
