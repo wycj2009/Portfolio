@@ -3,12 +3,21 @@ package com.ghost7.portfolio.portfolio
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.datetime.LocalDate
 
 @Composable
@@ -68,6 +77,25 @@ fun buildProjects(): List<Project> {
 @Composable
 private fun lifetimeContent() {
     Column(modifier = Modifier.width(900.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(RoundedCornerShape(10.dp)),
+                painter = Design.Resource.lifetimeLogo,
+                contentScale = ContentScale.FillWidth,
+                contentDescription = null,
+            )
+            Spacer(Modifier.width(15.dp))
+            Text(
+                text = "개인 프로젝트 - 라이프타임",
+                style = Design.Text.baseStyle.copy(
+                    fontSize = 16.sp,
+                    color = Design.Color.black,
+                ),
+            )
+        }
+        Spacer(Modifier.height(15.dp))
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             maxItemsInEachRow = 4,
@@ -90,5 +118,25 @@ private fun lifetimeContent() {
                 )
             }
         }
+        Spacer(Modifier.height(15.dp))
+        Text(
+            text = """
+                JAVA, Firebase(Analytics), SQLite, In-App Billing v3 Library(BillingProcessor), AdMob, AlarmManager, NotificationManager, Material Calendar, AudioManager, AppWidget
+
+                - Firebase의 Analytics와 연동
+                - SQLite를 사용해 데이터 저장 및 로드
+                - In-App Billing v3 Library(BillingProcessor)로 인앱결제 구현
+                - AdMob의 전면광고와 배너광고 삽입
+                - AlarmManager와 NotificationManager를 사용해 설정한 시간에 알람 및 알림 푸시
+                - Material Calendar로 달력 구성
+                - AudioManager로 사운드 효과 삽입
+                - AppWidget으로 4가지 위젯 삽입
+            """.trimIndent(),
+            style = Design.Text.baseStyle.copy(
+                fontSize = 14.sp,
+                color = Design.Color.black,
+                lineHeight = 24.sp,
+            ),
+        )
     }
 }

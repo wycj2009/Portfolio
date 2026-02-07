@@ -29,6 +29,17 @@ import portfolio.app.generated.resources.wifion_logo
 object Design {
 
     object Color {
+        val blueGray50 = Color(0XFFECF0FB)
+        val blueGray100 = Color(0XFFD2DBE9)
+        val blueGray200 = Color(0XFFB8C2D5)
+        val blueGray300 = Color(0XFF9DAAC0)
+        val blueGray400 = Color(0XFF8896AF)
+        val blueGray500 = Color(0XFF7384A0)
+        val blueGray600 = Color(0XFF64758E)
+        val blueGray700 = Color(0XFF536177)
+        val blueGray800 = Color(0XFF434E60)
+        val blueGray900 = Color(0XFF303948)
+
         val gray50 = Color(0XFFFAFAFA)
         val gray100 = Color(0XFFF5F5F5)
         val gray200 = Color(0XFFEEEEEE)

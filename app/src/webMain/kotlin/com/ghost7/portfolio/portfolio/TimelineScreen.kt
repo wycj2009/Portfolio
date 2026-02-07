@@ -110,6 +110,7 @@ fun TimelineScreen() {
                 pressedColor = Design.Color.black.a45(),
                 dragEnabled = true,
             )
+            .disableAutoScrollOnFocus()
             .clickable(
                 interactionSource = null,
                 indication = null,
@@ -263,6 +264,7 @@ fun TimelineScreen() {
                                 }
                             }
                         }
+                        .disableAutoScrollOnFocus()
                         .clickable(
                             interactionSource = null,
                             indication = null,
@@ -328,7 +330,7 @@ fun TimelineScreen() {
                             .widthIn(max = maxWidth)
                             .heightIn(max = with(density) { scrollState.viewportSize.toDp() })
                             .alpha(animAlpha)
-                            .background(color = Design.Color.gray300, shape = RoundedCornerShape(8.dp))
+                            .background(color = Design.Color.blueGray50, shape = RoundedCornerShape(8.dp))
                             .verticalScroll(contentScrollState)
                             .verticalScrollbar(
                                 adapter = contentScrollState.rememberScrollStateVerticalScrollbarAdapter(),
@@ -338,6 +340,7 @@ fun TimelineScreen() {
                                 pressedColor = Design.Color.black.a45(),
                                 dragEnabled = true,
                             )
+                            .disableAutoScrollOnFocus()
                             .clickable(
                                 interactionSource = null,
                                 indication = null,
