@@ -648,7 +648,7 @@ private fun artsharehubContent() {
                     """
                         Kotlin Multiplatform(KMP), Compose Multiplatform(Web), Android(Compose), Firebase(Auth/Firestore/Functions/Storage/Analytics), Google Sign-In, Naver Map JS/Geocoding
                         
-                        - 멀티모듈 구조: app(KMP Web UI), adminapp(Android 관리자 앱), data(공유 모델/Firebase 래퍼), functions(Firebase Cloud Functions)
+                        - 멀티모듈 구조: app(KMP Web UI), functions(Firebase Cloud Functions), adminapp(Android 관리자 앱), data(공유 모델/Firebase 래퍼)
                         - data 모듈에서 Firebase 초기화 및 인증 상태 Flow 관리, Firestore 실시간 구독으로 도메인 데이터 동기화
                         - Cloud Functions 호출 래퍼 구성 및 서버 기능 구현: 공연 등록/수정/삭제, 결제 정보 upsert, 포인트 지급, 주소 지오코딩, 사용자 생성/삭제 트리거
                         - Naver Map JS SDK 연동: 공연 위치 마커 표시, 포커스 이동, 리스트-지도 연동 모달 구현
