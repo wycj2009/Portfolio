@@ -16,7 +16,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.datetime.LocalDate
@@ -122,18 +129,22 @@ private fun lifetimeContent() {
         }
         Spacer(Modifier.height(15.dp))
         Text(
-            text = """
-                Android Studio, Java, Firebase(Analytics), SQLite, In-App Billing v3 Library(BillingProcessor), AdMob, AlarmManager, NotificationManager, Material Calendar, AudioManager, AppWidget
-
-                - Firebase의 Analytics와 연동
-                - SQLite를 사용해 데이터 저장 및 로드
-                - In-App Billing v3 Library(BillingProcessor)로 인앱결제 구현
-                - AdMob의 전면광고와 배너광고 삽입
-                - AlarmManager와 NotificationManager를 사용해 설정한 시간에 알람 및 알림 푸시
-                - Material Calendar로 달력 구성
-                - AudioManager로 사운드 효과 삽입
-                - AppWidget으로 4가지 위젯 삽입
-            """.trimIndent(),
+            text = buildAnnotatedString {
+                append(
+                    """
+                        Android Studio, Java, Firebase(Analytics), SQLite, In-App Billing v3 Library(BillingProcessor), AdMob, AlarmManager, NotificationManager, Material Calendar, AudioManager, AppWidget
+        
+                        - Firebase의 Analytics와 연동
+                        - SQLite를 사용해 데이터 저장 및 로드
+                        - In-App Billing v3 Library(BillingProcessor)로 인앱결제 구현
+                        - AdMob의 전면광고와 배너광고 삽입
+                        - AlarmManager와 NotificationManager를 사용해 설정한 시간에 알람 및 알림 푸시
+                        - Material Calendar로 달력 구성
+                        - AudioManager로 사운드 효과 삽입
+                        - AppWidget으로 4가지 위젯 삽입
+                    """.trimIndent()
+                )
+            },
             style = Design.Text.baseStyle.copy(
                 fontSize = 14.sp,
                 color = Design.Color.black,
@@ -190,16 +201,20 @@ private fun growskillsContent() {
         }
         Spacer(Modifier.height(15.dp))
         Text(
-            text = """
-                Unity, C#, Firebase(Analytics, Authentication, Realtime Database, Storage), PlayGameServices, REST API, Coroutine, Json, IAP, AdMob, Particle System, Animation
-
-                - Firebase의 Authentication 토큰을 가져와 PlayGameServices와 연동하여 로그인 구현
-                - Firebase의 Realtime Database를 사용해 실시간 채팅 구현. Firebase의 Storage를 사용해 서버에 유저 데이터 저장
-                - IAP를 사용해 인앱결제 구현
-                - AdMob의 보상형 동영상 광고 삽입
-                - Particle System을 사용해 스킬 이펙트 구현
-                - Animation을 사용해 캐릭터 움직임 효과 구현
-            """.trimIndent(),
+            text = buildAnnotatedString {
+                append(
+                    """
+                        Unity, C#, Firebase(Analytics, Authentication, Realtime Database, Storage), PlayGameServices, REST API, Coroutine, Json, IAP, AdMob, Particle System, Animation
+        
+                        - Firebase의 Authentication 토큰을 가져와 PlayGameServices와 연동하여 로그인 구현
+                        - Firebase의 Realtime Database를 사용해 실시간 채팅 구현. Firebase의 Storage를 사용해 서버에 유저 데이터 저장
+                        - IAP를 사용해 인앱결제 구현
+                        - AdMob의 보상형 동영상 광고 삽입
+                        - Particle System을 사용해 스킬 이펙트 구현
+                        - Animation을 사용해 캐릭터 움직임 효과 구현
+                    """.trimIndent()
+                )
+            },
             style = Design.Text.baseStyle.copy(
                 fontSize = 14.sp,
                 color = Design.Color.black,
@@ -256,17 +271,21 @@ private fun dietofhellContent() {
         }
         Spacer(Modifier.height(15.dp))
         Text(
-            text = """
-                Android Studio, Kotlin, Coroutine, Gson, BillingClient, AdMob, ForegroundService, AlarmManager, NotificationManager, Sensor, Custom View(Bar Chart, Line Chart), Material Design
-                
-                - BillingClient를 사용해 인앱결제 구현
-                - AdMob과 연동하여 전면광고, 보상형 광고, 네이티브 광고 삽입
-                - ForegroundService로 상단 알림이 고정되며 다이어트 일정 정보 디스플레이
-                - AlarmManager와 NotificationManager로 지정된 시간에 체중측정 및 식사 알림 푸시
-                - Sensor를 사용해 걸음 수 측정
-                - Bar Chart와 Line Chart는 Custom View로 만들었으며 데이터의 성격에 따라 세부 설정값 세팅
-                - Material Design에 기반한 디자인
-            """.trimIndent(),
+            text = buildAnnotatedString {
+                append(
+                    """
+                        Android Studio, Kotlin, Coroutine, Gson, BillingClient, AdMob, ForegroundService, AlarmManager, NotificationManager, Sensor, Custom View(Bar Chart, Line Chart), Material Design
+                        
+                        - BillingClient를 사용해 인앱결제 구현
+                        - AdMob과 연동하여 전면광고, 보상형 광고, 네이티브 광고 삽입
+                        - ForegroundService로 상단 알림이 고정되며 다이어트 일정 정보 디스플레이
+                        - AlarmManager와 NotificationManager로 지정된 시간에 체중측정 및 식사 알림 푸시
+                        - Sensor를 사용해 걸음 수 측정
+                        - Bar Chart와 Line Chart는 Custom View로 만들었으며 데이터의 성격에 따라 세부 설정값 세팅
+                        - Material Design에 기반한 디자인
+                    """.trimIndent()
+                )
+            },
             style = Design.Text.baseStyle.copy(
                 fontSize = 14.sp,
                 color = Design.Color.black,
@@ -320,18 +339,37 @@ private fun chaintodoContent() {
         }
         Spacer(Modifier.height(15.dp))
         Text(
-            text = """
-                Android Studio, Kotlin, Coroutine/Flow, Hilt, Room, DataStore, Retrofit2, Gson, BillingClient, AdMob(Interstitial), ViewBinding, Custom View(CalendarView), Material Design
-                
-                - Clean Architecture(data/domain/presentation) + UseCase 구조로 투두/캘린더 데이터 관리
-                - 계층형 Todo 구조(idxPath) 지원 및 드래그 정렬(ItemTouchHelper) 구현
-                - ViewPager 기반 CalendarView 커스텀 구현: 월 단위 페이지 전환, 도트/기간 라인 표시, 공휴일 색상 강조
-                - Google Calendar API 연동으로 공휴일/휴일 데이터 수집 및 로컬 저장
-                - DataStore로 텍스트 크기 등 설정 유지, 설정 화면에서 데이터 초기화/내보내기/가져오기 제공
-                - BillingClient로 광고 제거 인앱결제 구현 및 구매 처리(Acknowledge) 로직 구성
-                - AdMob 전면 광고 로드/노출(Interstitial) 연동
-                - 다국어 리소스(ko/ja) 및 Material Design 테마 적용
-            """.trimIndent(),
+            text = buildAnnotatedString {
+                append(
+                    """
+                        Android Studio, Kotlin, Coroutine/Flow, Hilt, Room, DataStore, Retrofit2, Gson, BillingClient, AdMob(Interstitial), ViewBinding, Custom View(CalendarView), Material Design
+                        
+                        - Clean Architecture(data/domain/presentation) + UseCase 구조로 투두/캘린더 데이터 관리
+                        - 계층형 Todo 구조(idxPath) 지원 및 드래그 정렬(ItemTouchHelper) 구현
+                        - ViewPager 기반 CalendarView 커스텀 구현: 월 단위 페이지 전환, 도트/기간 라인 표시, 공휴일 색상 강조
+                        - Google Calendar API 연동으로 공휴일/휴일 데이터 수집 및 로컬 저장
+                        - DataStore로 텍스트 크기 등 설정 유지, 설정 화면에서 데이터 초기화/내보내기/가져오기 제공
+                        - BillingClient로 광고 제거 인앱결제 구현 및 구매 처리(Acknowledge) 로직 구성
+                        - AdMob 전면 광고 로드/노출(Interstitial) 연동
+                        - 다국어 리소스(ko/ja) 및 Material Design 테마 적용
+                    """.trimIndent()
+                )
+                appendLine()
+                appendLine()
+                withLink(
+                    LinkAnnotation.Url(
+                        url = "https://play.google.com/store/apps/details?id=com.ghost7.chaintodo&pcampaignid=web_share",
+                        styles = TextLinkStyles(
+                            style = SpanStyle(
+                                color = Color(0xFF2563EB),
+                                textDecoration = TextDecoration.Underline,
+                            ),
+                        ),
+                    )
+                ) {
+                    append("Google Play")
+                }
+            },
             style = Design.Text.baseStyle.copy(
                 fontSize = 14.sp,
                 color = Design.Color.black,
