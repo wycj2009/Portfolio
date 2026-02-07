@@ -9,14 +9,14 @@ import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 import portfolio.app.generated.resources.NotoSansKR_Medium
 import portfolio.app.generated.resources.Res
-import portfolio.app.generated.resources.logo_artsharehub
-import portfolio.app.generated.resources.logo_chaintodo
-import portfolio.app.generated.resources.logo_dietofhell
-import portfolio.app.generated.resources.logo_growskills
-import portfolio.app.generated.resources.logo_kakaotalk
-import portfolio.app.generated.resources.logo_kanana
-import portfolio.app.generated.resources.logo_lifetime
-import portfolio.app.generated.resources.logo_wifion
+import portfolio.app.generated.resources.artsharehub_logo
+import portfolio.app.generated.resources.chaintodo_logo
+import portfolio.app.generated.resources.dietofhell_logo
+import portfolio.app.generated.resources.growskills_logo
+import portfolio.app.generated.resources.kakaotalk_logo
+import portfolio.app.generated.resources.kanana_logo
+import portfolio.app.generated.resources.lifetime_logo
+import portfolio.app.generated.resources.wifion_logo
 
 object Design {
 
@@ -63,13 +63,13 @@ object Design {
     }
 
     object Icon {
-        val logoLifetime: Painter @Composable get() = painterResource(Res.drawable.logo_lifetime)
-        val logoGrowskills: Painter @Composable get() = painterResource(Res.drawable.logo_growskills)
-        val logoWifion: Painter @Composable get() = painterResource(Res.drawable.logo_wifion)
-        val logoDietofhell: Painter @Composable get() = painterResource(Res.drawable.logo_dietofhell)
-        val logoKakaotalk: Painter @Composable get() = painterResource(Res.drawable.logo_kakaotalk)
-        val logoChaintodo: Painter @Composable get() = painterResource(Res.drawable.logo_chaintodo)
-        val logoKanana: Painter @Composable get() = painterResource(Res.drawable.logo_kanana)
-        val logoArtsharehub: Painter @Composable get() = painterResource(Res.drawable.logo_artsharehub)
+        val lifetimeLogo: Painter @Composable get() = painterResource(Res.drawable.lifetime_logo)
+        val growskillsLogo: Painter @Composable get() = painterResource(Res.drawable.growskills_logo)
+        val wifionLogo: Painter @Composable get() = painterResource(Res.drawable.wifion_logo)
+        val dietofhellLogo: Painter @Composable get() = painterResource(Res.drawable.dietofhell_logo)
+        val kakaotalkLogo: Painter @Composable get() = painterResource(Res.drawable.kakaotalk_logo)
+        val chaintodoLogo: Painter @Composable get() = painterResource(Res.drawable.chaintodo_logo)
+        val kananaLogo: Painter @Composable get() = painterResource(Res.drawable.kanana_logo)
+        val artsharehubLogo: Painter @Composable get() = painterResource(Res.drawable.artsharehub_logo)
     }
 }
