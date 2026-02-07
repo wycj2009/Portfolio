@@ -11,8 +11,29 @@ import portfolio.app.generated.resources.NotoSansKR_Medium
 import portfolio.app.generated.resources.Res
 import portfolio.app.generated.resources.artsharehub_logo
 import portfolio.app.generated.resources.chaintodo_logo
+import portfolio.app.generated.resources.chaintodo_screenshot_0
+import portfolio.app.generated.resources.chaintodo_screenshot_1
+import portfolio.app.generated.resources.chaintodo_screenshot_2
+import portfolio.app.generated.resources.chaintodo_screenshot_3
+import portfolio.app.generated.resources.chaintodo_screenshot_4
 import portfolio.app.generated.resources.dietofhell_logo
+import portfolio.app.generated.resources.dietofhell_screenshot_0
+import portfolio.app.generated.resources.dietofhell_screenshot_1
+import portfolio.app.generated.resources.dietofhell_screenshot_2
+import portfolio.app.generated.resources.dietofhell_screenshot_3
+import portfolio.app.generated.resources.dietofhell_screenshot_4
+import portfolio.app.generated.resources.dietofhell_screenshot_5
+import portfolio.app.generated.resources.dietofhell_screenshot_6
+import portfolio.app.generated.resources.dietofhell_screenshot_7
 import portfolio.app.generated.resources.growskills_logo
+import portfolio.app.generated.resources.growskills_screenshot_0
+import portfolio.app.generated.resources.growskills_screenshot_1
+import portfolio.app.generated.resources.growskills_screenshot_2
+import portfolio.app.generated.resources.growskills_screenshot_3
+import portfolio.app.generated.resources.growskills_screenshot_4
+import portfolio.app.generated.resources.growskills_screenshot_5
+import portfolio.app.generated.resources.growskills_screenshot_6
+import portfolio.app.generated.resources.growskills_screenshot_7
 import portfolio.app.generated.resources.kakaotalk_logo
 import portfolio.app.generated.resources.kanana_logo
 import portfolio.app.generated.resources.lifetime_logo
@@ -92,10 +113,31 @@ object Design {
         val lifetimeScreenshot6: Painter @Composable get() = painterResource(Res.drawable.lifetime_screenshot_6)
         val lifetimeScreenshot7: Painter @Composable get() = painterResource(Res.drawable.lifetime_screenshot_7)
         val growskillsLogo: Painter @Composable get() = painterResource(Res.drawable.growskills_logo)
+        val growskillsScreenshot0: Painter @Composable get() = painterResource(Res.drawable.growskills_screenshot_0)
+        val growskillsScreenshot1: Painter @Composable get() = painterResource(Res.drawable.growskills_screenshot_1)
+        val growskillsScreenshot2: Painter @Composable get() = painterResource(Res.drawable.growskills_screenshot_2)
+        val growskillsScreenshot3: Painter @Composable get() = painterResource(Res.drawable.growskills_screenshot_3)
+        val growskillsScreenshot4: Painter @Composable get() = painterResource(Res.drawable.growskills_screenshot_4)
+        val growskillsScreenshot5: Painter @Composable get() = painterResource(Res.drawable.growskills_screenshot_5)
+        val growskillsScreenshot6: Painter @Composable get() = painterResource(Res.drawable.growskills_screenshot_6)
+        val growskillsScreenshot7: Painter @Composable get() = painterResource(Res.drawable.growskills_screenshot_7)
         val wifionLogo: Painter @Composable get() = painterResource(Res.drawable.wifion_logo)
         val dietofhellLogo: Painter @Composable get() = painterResource(Res.drawable.dietofhell_logo)
+        val dietofhellScreenshot0: Painter @Composable get() = painterResource(Res.drawable.dietofhell_screenshot_0)
+        val dietofhellScreenshot1: Painter @Composable get() = painterResource(Res.drawable.dietofhell_screenshot_1)
+        val dietofhellScreenshot2: Painter @Composable get() = painterResource(Res.drawable.dietofhell_screenshot_2)
+        val dietofhellScreenshot3: Painter @Composable get() = painterResource(Res.drawable.dietofhell_screenshot_3)
+        val dietofhellScreenshot4: Painter @Composable get() = painterResource(Res.drawable.dietofhell_screenshot_4)
+        val dietofhellScreenshot5: Painter @Composable get() = painterResource(Res.drawable.dietofhell_screenshot_5)
+        val dietofhellScreenshot6: Painter @Composable get() = painterResource(Res.drawable.dietofhell_screenshot_6)
+        val dietofhellScreenshot7: Painter @Composable get() = painterResource(Res.drawable.dietofhell_screenshot_7)
         val kakaotalkLogo: Painter @Composable get() = painterResource(Res.drawable.kakaotalk_logo)
         val chaintodoLogo: Painter @Composable get() = painterResource(Res.drawable.chaintodo_logo)
+        val chaintodoScreenshot0: Painter @Composable get() = painterResource(Res.drawable.chaintodo_screenshot_0)
+        val chaintodoScreenshot1: Painter @Composable get() = painterResource(Res.drawable.chaintodo_screenshot_1)
+        val chaintodoScreenshot2: Painter @Composable get() = painterResource(Res.drawable.chaintodo_screenshot_2)
+        val chaintodoScreenshot3: Painter @Composable get() = painterResource(Res.drawable.chaintodo_screenshot_3)
+        val chaintodoScreenshot4: Painter @Composable get() = painterResource(Res.drawable.chaintodo_screenshot_4)
         val kananaLogo: Painter @Composable get() = painterResource(Res.drawable.kanana_logo)
         val artsharehubLogo: Painter @Composable get() = painterResource(Res.drawable.artsharehub_logo)
     }
