@@ -46,6 +46,12 @@ import portfolio.app.generated.resources.lifetime_screenshot_5
 import portfolio.app.generated.resources.lifetime_screenshot_6
 import portfolio.app.generated.resources.lifetime_screenshot_7
 import portfolio.app.generated.resources.wifion_logo
+import portfolio.app.generated.resources.wifion_screenshot_0
+import portfolio.app.generated.resources.wifion_screenshot_1
+import portfolio.app.generated.resources.wifion_screenshot_2
+import portfolio.app.generated.resources.wifion_screenshot_3
+import portfolio.app.generated.resources.wifion_screenshot_4
+import portfolio.app.generated.resources.wifion_screenshot_5
 
 object Design {
 
@@ -122,6 +128,12 @@ object Design {
         val growskillsScreenshot6: Painter @Composable get() = painterResource(Res.drawable.growskills_screenshot_6)
         val growskillsScreenshot7: Painter @Composable get() = painterResource(Res.drawable.growskills_screenshot_7)
         val wifionLogo: Painter @Composable get() = painterResource(Res.drawable.wifion_logo)
+        val wifionScreenshot0: Painter @Composable get() = painterResource(Res.drawable.wifion_screenshot_0)
+        val wifionScreenshot1: Painter @Composable get() = painterResource(Res.drawable.wifion_screenshot_1)
+        val wifionScreenshot2: Painter @Composable get() = painterResource(Res.drawable.wifion_screenshot_2)
+        val wifionScreenshot3: Painter @Composable get() = painterResource(Res.drawable.wifion_screenshot_3)
+        val wifionScreenshot4: Painter @Composable get() = painterResource(Res.drawable.wifion_screenshot_4)
+        val wifionScreenshot5: Painter @Composable get() = painterResource(Res.drawable.wifion_screenshot_5)
         val dietofhellLogo: Painter @Composable get() = painterResource(Res.drawable.dietofhell_logo)
         val dietofhellScreenshot0: Painter @Composable get() = painterResource(Res.drawable.dietofhell_screenshot_0)
         val dietofhellScreenshot1: Painter @Composable get() = painterResource(Res.drawable.dietofhell_screenshot_1)

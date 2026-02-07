@@ -47,7 +47,7 @@ fun buildProjects(): List<Project> {
             logo = Design.Resource.wifionLogo,
             startDate = LocalDate(year = 2020, month = 8, day = 1),
             endDate = LocalDate(year = 2021, month = 8, day = 1),
-            content = { },
+            content = { wifionContent() },
         ),
         Project(
             logo = Design.Resource.dietofhellLogo,
@@ -216,6 +216,81 @@ private fun growskillsContent() {
                         - AdMob의 보상형 동영상 광고 삽입
                         - Particle System을 사용해 스킬 이펙트 구현
                         - Animation을 사용해 캐릭터 움직임 효과 구현
+                    """.trimIndent()
+                )
+            },
+            style = Design.Text.baseStyle.copy(
+                fontSize = 14.sp,
+                color = Design.Color.black,
+                lineHeight = 24.sp,
+            ),
+        )
+    }
+}
+
+@Composable
+private fun wifionContent() {
+    Column(modifier = Modifier.width(900.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(RoundedCornerShape(10.dp)),
+                painter = Design.Resource.wifionLogo,
+                contentScale = ContentScale.FillWidth,
+                contentDescription = null,
+            )
+            Spacer(Modifier.width(15.dp))
+            Text(
+                text = buildAnnotatedString {
+                    append("넥스컨텔레컴 - 와이파이온")
+                },
+                style = Design.Text.baseStyle.copy(
+                    fontSize = 16.sp,
+                    color = Design.Color.black,
+                ),
+            )
+        }
+        Spacer(Modifier.height(15.dp))
+        FlowRow(
+            modifier = Modifier.fillMaxWidth(),
+            maxItemsInEachRow = 3,
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            listOf(
+                Design.Resource.wifionScreenshot0,
+                Design.Resource.wifionScreenshot1,
+                Design.Resource.wifionScreenshot2,
+                Design.Resource.wifionScreenshot3,
+                Design.Resource.wifionScreenshot4,
+                Design.Resource.wifionScreenshot5,
+            ).forEach { painter ->
+                Image(
+                    modifier = Modifier.width(225.dp),
+                    painter = painter,
+                    contentScale = ContentScale.FillWidth,
+                    contentDescription = null,
+                )
+            }
+        }
+        Spacer(Modifier.height(15.dp))
+        Text(
+            text = buildAnnotatedString {
+                append(
+                    """
+                        Android Studio, Kotlin, Java, Firebase(Analytics, Cloud Messaging), Retrofit2, REST API, Coroutine, Json, WifiManager, ConnectivityManager, ForegroundService, NotificationManager, Google Map, AES, Material Design, Zeplin
+                        
+                        - Firebase와 연동하여 Cloud Messaging 기능 구현
+                        - Retrofit2를 사용하여 REST API를 구현 및 웹 서버와 통신
+                        - WifiManager로 와이파이 정보를 가져오고 고유값인 BSSID로 와이파이를 식별하며 서버에서 받아온 와이파이 리스트를 추천 목록에 업데이트
+                        - ConnectivityManager를 사용하여 와이파이 상태변화 체크
+                        - 와이파이 관련 기능들은 ForegroundService 위에서 동작
+                        - NotificationManager를 사용해 와이파이가 연결되었을 때 알림 창 푸시
+                        - Google Map과 연동하여 주변 와이파이 위치 표시
+                        - AES(고급 암호화 표준) 암호화 기법으로 와이파이 정보 암호화 및 복호화
+                        - Material Design 가이드라인 참고
+                        - Zeplin을 사용해 디자이너와 협업
+                        - 초기 버전은 JAVA로 개발했으며 Kotlin으로 리팩토링하여 업데이트
                     """.trimIndent()
                 )
             },
