@@ -67,7 +67,7 @@ fun buildProjects(): List<Project> {
 
 @Composable
 private fun lifetimeContent() {
-    Column(modifier = Modifier.width(800.dp)) {
+    Column(modifier = Modifier.width(900.dp)) {
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             maxItemsInEachRow = 4,
@@ -83,9 +83,9 @@ private fun lifetimeContent() {
                 Design.Resource.lifetimeScreenshot7,
             ).forEach { painter ->
                 Image(
-                    modifier = Modifier.width(200.dp),
+                    modifier = Modifier.weight(1f),
                     painter = painter,
-                    contentScale = ContentScale.Fit,
+                    contentScale = ContentScale.FillWidth,
                     contentDescription = null,
                 )
             }

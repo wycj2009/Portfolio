@@ -14,10 +14,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -323,8 +325,19 @@ fun TimelineScreen() {
                         modifier = Modifier
                             .zIndex(4f)
                             .offset(x = contentRect.left, y = -titleHeight + contentRect.top)
+                            .widthIn(max = maxWidth)
+                            .heightIn(max = with(density) { scrollState.viewportSize.toDp() })
                             .alpha(animAlpha)
-                            .background(color = Design.Color.gray100, shape = RoundedCornerShape(8.dp))
+                            .background(color = Design.Color.gray300, shape = RoundedCornerShape(8.dp))
+                            .verticalScroll(contentScrollState)
+                            .verticalScrollbar(
+                                adapter = contentScrollState.rememberScrollStateVerticalScrollbarAdapter(),
+                                width = 15.dp,
+                                innerPadding = PaddingValues(horizontal = 3.dp, vertical = 3.dp),
+                                color = Design.Color.black.a30(),
+                                pressedColor = Design.Color.black.a45(),
+                                dragEnabled = true,
+                            )
                             .clickable(
                                 interactionSource = null,
                                 indication = null,
@@ -334,8 +347,7 @@ fun TimelineScreen() {
                                 contentWidth = with(density) { it.size.width.toDp() }
                                 contentHeight = with(density) { it.size.height.toDp() }
                             }
-                            .verticalScroll(contentScrollState)
-                            .padding(horizontal = 12.dp, vertical = 12.dp),
+                            .padding(horizontal = 15.dp, vertical = 15.dp),
                     ) {
                         project.content()
                     }
