@@ -96,7 +96,9 @@ private fun lifetimeContent() {
             )
             Spacer(Modifier.width(15.dp))
             Text(
-                text = "개인 프로젝트 - 라이프타임",
+                text = buildAnnotatedString {
+                    append("개인 프로젝트 - 라이프타임")
+                },
                 style = Design.Text.baseStyle.copy(
                     fontSize = 16.sp,
                     color = Design.Color.black,
@@ -168,7 +170,9 @@ private fun growskillsContent() {
             )
             Spacer(Modifier.width(15.dp))
             Text(
-                text = "개인 프로젝트 - 스킬 키우기",
+                text = buildAnnotatedString {
+                    append("개인 프로젝트 - 스킬 키우기")
+                },
                 style = Design.Text.baseStyle.copy(
                     fontSize = 16.sp,
                     color = Design.Color.black,
@@ -238,7 +242,9 @@ private fun dietofhellContent() {
             )
             Spacer(Modifier.width(15.dp))
             Text(
-                text = "개인 프로젝트 - 지옥의 다이어트",
+                text = buildAnnotatedString {
+                    append("개인 프로젝트 - 지옥의 다이어트")
+                },
                 style = Design.Text.baseStyle.copy(
                     fontSize = 16.sp,
                     color = Design.Color.black,
@@ -309,7 +315,23 @@ private fun chaintodoContent() {
             )
             Spacer(Modifier.width(15.dp))
             Text(
-                text = "개인 프로젝트 - 체인 투두",
+                text = buildAnnotatedString {
+                    append("개인 프로젝트 - 체인 투두")
+                    append("   ")
+                    withLink(
+                        LinkAnnotation.Url(
+                            url = "https://play.google.com/store/apps/details?id=com.ghost7.chaintodo&pcampaignid=web_share",
+                            styles = TextLinkStyles(
+                                style = SpanStyle(
+                                    color = Color(0xFF2563EB),
+                                    textDecoration = TextDecoration.Underline,
+                                ),
+                            ),
+                        )
+                    ) {
+                        append("Google Play")
+                    }
+                },
                 style = Design.Text.baseStyle.copy(
                     fontSize = 16.sp,
                     color = Design.Color.black,
@@ -354,21 +376,6 @@ private fun chaintodoContent() {
                         - 다국어 리소스(ko/ja) 및 Material Design 테마 적용
                     """.trimIndent()
                 )
-                appendLine()
-                appendLine()
-                withLink(
-                    LinkAnnotation.Url(
-                        url = "https://play.google.com/store/apps/details?id=com.ghost7.chaintodo&pcampaignid=web_share",
-                        styles = TextLinkStyles(
-                            style = SpanStyle(
-                                color = Color(0xFF2563EB),
-                                textDecoration = TextDecoration.Underline,
-                            ),
-                        ),
-                    )
-                ) {
-                    append("Google Play")
-                }
             },
             style = Design.Text.baseStyle.copy(
                 fontSize = 14.sp,
