@@ -533,7 +533,7 @@ private fun artsharehubContent() {
                         - data 모듈에서 Firebase 초기화 및 인증 상태 Flow 관리, Firestore 실시간 구독으로 도메인 데이터 동기화
                         - Cloud Functions 호출 래퍼 구성 및 서버 기능 구현: 공연 등록/수정/삭제, 결제 정보 upsert, 포인트 지급, 주소 지오코딩, 사용자 생성/삭제 트리거
                         - Naver Map JS SDK 연동: 공연 위치 마커 표시, 포커스 이동, 리스트-지도 연동 모달 구현
-                        - 공연 목록/상세/관리, 포인트 충전/내역, 대시보드/마이페이지 등 화면 구성
+                        - 화면 크기와 디바이스에 상관없이 일관된 UI 경험을 제공하도록 반응형 구성
                     """.trimIndent()
                 )
             },
