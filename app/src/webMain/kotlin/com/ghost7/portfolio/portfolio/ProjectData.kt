@@ -71,7 +71,7 @@ fun buildProjects(): List<Project> {
             logo = Design.Resource.kananaLogo,
             startDate = LocalDate(year = 2024, month = 6, day = 1),
             endDate = LocalDate(year = 2026, month = 2, day = 1),
-            content = { },
+            content = { kananaContent() },
         ),
         Project(
             logo = Design.Resource.artsharehubLogo,
@@ -122,7 +122,7 @@ private fun lifetimeContent() {
                 Design.Resource.lifetimeScreenshot7,
             ).forEach { painter ->
                 Image(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.fillMaxWidth(0.249f),
                     painter = painter,
                     contentScale = ContentScale.FillWidth,
                     contentDescription = null,
@@ -196,7 +196,7 @@ private fun growskillsContent() {
                 Design.Resource.growskillsScreenshot7,
             ).forEach { painter ->
                 Image(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.fillMaxWidth(0.249f),
                     painter = painter,
                     contentScale = ContentScale.FillWidth,
                     contentDescription = null,
@@ -266,7 +266,7 @@ private fun wifionContent() {
                 Design.Resource.wifionScreenshot5,
             ).forEach { painter ->
                 Image(
-                    modifier = Modifier.width(225.dp),
+                    modifier = Modifier.fillMaxWidth(0.249f),
                     painter = painter,
                     contentScale = ContentScale.FillWidth,
                     contentDescription = null,
@@ -343,7 +343,7 @@ private fun dietofhellContent() {
                 Design.Resource.dietofhellScreenshot7,
             ).forEach { painter ->
                 Image(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.fillMaxWidth(0.249f),
                     painter = painter,
                     contentScale = ContentScale.FillWidth,
                     contentDescription = null,
@@ -468,7 +468,7 @@ private fun chaintodoContent() {
                 Design.Resource.chaintodoScreenshot4,
             ).forEach { painter ->
                 Image(
-                    modifier = Modifier.width(225.dp),
+                    modifier = Modifier.fillMaxWidth(0.249f),
                     painter = painter,
                     contentScale = ContentScale.FillWidth,
                     contentDescription = null,
@@ -490,6 +490,84 @@ private fun chaintodoContent() {
                         - BillingClient로 광고 제거 인앱결제 구현 및 구매 처리(Acknowledge) 로직 구성
                         - AdMob 전면 광고 로드/노출(Interstitial) 연동
                         - 다국어 리소스(ko/ja) 및 Material Design 테마 적용
+                    """.trimIndent()
+                )
+            },
+            style = Design.Text.baseStyle.copy(
+                fontSize = 14.sp,
+                color = Design.Color.black,
+                lineHeight = 24.sp,
+            ),
+        )
+    }
+}
+
+@Composable
+private fun kananaContent() {
+    Column(modifier = Modifier.width(900.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(RoundedCornerShape(10.dp)),
+                painter = Design.Resource.kananaLogo,
+                contentScale = ContentScale.FillWidth,
+                contentDescription = null,
+            )
+            Spacer(Modifier.width(15.dp))
+            Text(
+                text = buildAnnotatedString {
+                    append("카카오 - 카나나")
+                    append("   ")
+                    withLink(
+                        LinkAnnotation.Url(
+                            url = "https://play.google.com/store/apps/details?id=com.kakao.kanana&pcampaignid=web_share",
+                            styles = TextLinkStyles(
+                                style = SpanStyle(
+                                    color = Color(0xFF2563EB),
+                                    textDecoration = TextDecoration.Underline,
+                                ),
+                            ),
+                        )
+                    ) {
+                        append("Google Play")
+                    }
+                },
+                style = Design.Text.baseStyle.copy(
+                    fontSize = 16.sp,
+                    color = Design.Color.black,
+                ),
+            )
+        }
+        Spacer(Modifier.height(15.dp))
+        FlowRow(
+            modifier = Modifier.fillMaxWidth(),
+            maxItemsInEachRow = 4,
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            listOf(
+                Design.Resource.kananaScreenshot0,
+                Design.Resource.kananaScreenshot1,
+                Design.Resource.kananaScreenshot2,
+                Design.Resource.kananaScreenshot3,
+                Design.Resource.kananaScreenshot4,
+                Design.Resource.kananaScreenshot5,
+                Design.Resource.kananaScreenshot6,
+            ).forEach { painter ->
+                Image(
+                    modifier = Modifier.fillMaxWidth(0.249f),
+                    painter = painter,
+                    contentScale = ContentScale.FillWidth,
+                    contentDescription = null,
+                )
+            }
+        }
+        Spacer(Modifier.height(15.dp))
+        Text(
+            text = buildAnnotatedString {
+                append(
+                    """
+                        ???
                     """.trimIndent()
                 )
             },
@@ -556,7 +634,7 @@ private fun artsharehubContent() {
                 Design.Resource.artsharehubScreenshot7,
             ).forEach { painter ->
                 Image(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.fillMaxWidth(1f),
                     painter = painter,
                     contentScale = ContentScale.FillWidth,
                     contentDescription = null,

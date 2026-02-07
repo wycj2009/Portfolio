@@ -44,6 +44,13 @@ import portfolio.app.generated.resources.growskills_screenshot_6
 import portfolio.app.generated.resources.growskills_screenshot_7
 import portfolio.app.generated.resources.kakaotalk_logo
 import portfolio.app.generated.resources.kanana_logo
+import portfolio.app.generated.resources.kanana_screenshot_0
+import portfolio.app.generated.resources.kanana_screenshot_1
+import portfolio.app.generated.resources.kanana_screenshot_2
+import portfolio.app.generated.resources.kanana_screenshot_3
+import portfolio.app.generated.resources.kanana_screenshot_4
+import portfolio.app.generated.resources.kanana_screenshot_5
+import portfolio.app.generated.resources.kanana_screenshot_6
 import portfolio.app.generated.resources.lifetime_logo
 import portfolio.app.generated.resources.lifetime_screenshot_0
 import portfolio.app.generated.resources.lifetime_screenshot_1
@@ -159,6 +166,13 @@ object Design {
         val chaintodoScreenshot3: Painter @Composable get() = painterResource(Res.drawable.chaintodo_screenshot_3)
         val chaintodoScreenshot4: Painter @Composable get() = painterResource(Res.drawable.chaintodo_screenshot_4)
         val kananaLogo: Painter @Composable get() = painterResource(Res.drawable.kanana_logo)
+        val kananaScreenshot0: Painter @Composable get() = painterResource(Res.drawable.kanana_screenshot_0)
+        val kananaScreenshot1: Painter @Composable get() = painterResource(Res.drawable.kanana_screenshot_1)
+        val kananaScreenshot2: Painter @Composable get() = painterResource(Res.drawable.kanana_screenshot_2)
+        val kananaScreenshot3: Painter @Composable get() = painterResource(Res.drawable.kanana_screenshot_3)
+        val kananaScreenshot4: Painter @Composable get() = painterResource(Res.drawable.kanana_screenshot_4)
+        val kananaScreenshot5: Painter @Composable get() = painterResource(Res.drawable.kanana_screenshot_5)
+        val kananaScreenshot6: Painter @Composable get() = painterResource(Res.drawable.kanana_screenshot_6)
         val artsharehubLogo: Painter @Composable get() = painterResource(Res.drawable.artsharehub_logo)
         val artsharehubScreenshot0: Painter @Composable get() = painterResource(Res.drawable.artsharehub_screenshot_0)
         val artsharehubScreenshot1: Painter @Composable get() = painterResource(Res.drawable.artsharehub_screenshot_1)
