@@ -59,7 +59,7 @@ fun buildProjects(): List<Project> {
             logo = Design.Resource.kakaotalkLogo,
             startDate = LocalDate(year = 2021, month = 10, day = 1),
             endDate = LocalDate(year = 2024, month = 6, day = 1),
-            content = { },
+            content = { kakaotalkContent() },
         ),
         Project(
             logo = Design.Resource.chaintodoLogo,
@@ -364,6 +364,47 @@ private fun dietofhellContent() {
                         - Sensor를 사용해 걸음 수 측정
                         - Bar Chart와 Line Chart는 Custom View로 만들었으며 데이터의 성격에 따라 세부 설정값 세팅
                         - Material Design에 기반한 디자인
+                    """.trimIndent()
+                )
+            },
+            style = Design.Text.baseStyle.copy(
+                fontSize = 14.sp,
+                color = Design.Color.black,
+                lineHeight = 24.sp,
+            ),
+        )
+    }
+}
+
+@Composable
+private fun kakaotalkContent() {
+    Column(modifier = Modifier.width(900.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(RoundedCornerShape(10.dp)),
+                painter = Design.Resource.kakaotalkLogo,
+                contentScale = ContentScale.FillWidth,
+                contentDescription = null,
+            )
+            Spacer(Modifier.width(15.dp))
+            Text(
+                text = buildAnnotatedString {
+                    append("카카오 - 카카오톡")
+                },
+                style = Design.Text.baseStyle.copy(
+                    fontSize = 16.sp,
+                    color = Design.Color.black,
+                ),
+            )
+        }
+        Spacer(Modifier.height(15.dp))
+        Text(
+            text = buildAnnotatedString {
+                append(
+                    """
+                        ???
                     """.trimIndent()
                 )
             },
