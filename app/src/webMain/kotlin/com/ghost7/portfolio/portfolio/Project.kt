@@ -1,5 +1,6 @@
 package com.ghost7.portfolio.portfolio
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import kotlinx.datetime.LocalDate
 import kotlin.math.max
@@ -9,6 +10,7 @@ data class Project(
     val logo: Painter,
     val startDate: LocalDate,
     val endDate: LocalDate,
+    val content: @Composable () -> Unit,
 ) {
     fun getMarkerIndexRange(markers: List<Marker>): IntRange {
         if (markers.isEmpty()) return IntRange.EMPTY

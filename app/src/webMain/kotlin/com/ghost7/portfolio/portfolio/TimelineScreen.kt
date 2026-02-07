@@ -43,13 +43,12 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpRect
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.height
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.unit.width
 import androidx.compose.ui.zIndex
 import com.ghost7.portfolio.portfolio.Design.Color.a30
 import com.ghost7.portfolio.portfolio.Design.Color.a40
@@ -282,27 +281,28 @@ fun TimelineScreen() {
                             .background(focusedDotAndTextColor)
                     )
 
-                    val detailRect = run {
+                    val contentScrollState = rememberScrollState()
+                    var contentWidth by remember { mutableStateOf(Dp.Unspecified) }
+                    var contentHeight by remember { mutableStateOf(Dp.Unspecified) }
+                    val contentRect = run {
                         val viewportWidth = maxWidth
                         val viewportHeight = with(density) { (scrollState.maxValue + scrollState.viewportSize).toDp() }
-                        val detailWidth = 500.dp
-                        val detailHeight = 500.dp
                         val logoCenterX = logoX + (projectLogoSize * 0.5f)
                         val logoCenterY = titleHeight + logoY + (projectLogoSize * 0.5f)
 
                         if (index % 2 == 0) {
                             DpRect(
-                                left = logoCenterX - 50.dp - detailWidth,
-                                top = logoCenterY - (detailHeight * 0.5f),
+                                left = logoCenterX - 50.dp - contentWidth,
+                                top = logoCenterY - (contentHeight * 0.5f),
                                 right = logoCenterX - 50.dp,
-                                bottom = logoCenterY + (detailHeight * 0.5f),
+                                bottom = logoCenterY + (contentHeight * 0.5f),
                             )
                         } else {
                             DpRect(
                                 left = logoCenterX + 50.dp,
-                                top = logoCenterY - (detailHeight * 0.5f),
-                                right = logoCenterX + 50.dp + detailWidth,
-                                bottom = logoCenterY + (detailHeight * 0.5f),
+                                top = logoCenterY - (contentHeight * 0.5f),
+                                right = logoCenterX + 50.dp + contentWidth,
+                                bottom = logoCenterY + (contentHeight * 0.5f),
                             )
                         }.let {
                             val diff = it.left.coerceAtLeast(0.dp) - it.left
@@ -322,18 +322,22 @@ fun TimelineScreen() {
                     Box(
                         modifier = Modifier
                             .zIndex(4f)
-                            .offset(x = detailRect.left, y = -titleHeight + detailRect.top)
-                            .size(width = detailRect.width, height = detailRect.height)
+                            .offset(x = contentRect.left, y = -titleHeight + contentRect.top)
                             .alpha(animAlpha)
-                            .background(color = Design.Color.gray400, shape = RoundedCornerShape(8.dp))
+                            .background(color = Design.Color.gray100, shape = RoundedCornerShape(8.dp))
                             .clickable(
                                 interactionSource = null,
                                 indication = null,
                                 onClick = {},
                             )
+                            .onGloballyPositioned {
+                                contentWidth = with(density) { it.size.width.toDp() }
+                                contentHeight = with(density) { it.size.height.toDp() }
+                            }
+                            .verticalScroll(contentScrollState)
                             .padding(horizontal = 12.dp, vertical = 12.dp),
                     ) {
-                        // TODO
+                        project.content()
                     }
                 }
             }
