@@ -77,7 +77,7 @@ fun buildProjects(): List<Project> {
             logo = Design.Resource.artsharehubLogo,
             startDate = LocalDate(year = 2025, month = 12, day = 1),
             endDate = LocalDate(year = 2026, month = 2, day = 1),
-            content = { },
+            content = { artsharehubContent() },
         ),
     )
 }
@@ -449,6 +449,91 @@ private fun chaintodoContent() {
                         - BillingClient로 광고 제거 인앱결제 구현 및 구매 처리(Acknowledge) 로직 구성
                         - AdMob 전면 광고 로드/노출(Interstitial) 연동
                         - 다국어 리소스(ko/ja) 및 Material Design 테마 적용
+                    """.trimIndent()
+                )
+            },
+            style = Design.Text.baseStyle.copy(
+                fontSize = 14.sp,
+                color = Design.Color.black,
+                lineHeight = 24.sp,
+            ),
+        )
+    }
+}
+
+@Composable
+private fun artsharehubContent() {
+    Column(modifier = Modifier.width(900.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(RoundedCornerShape(10.dp)),
+                painter = Design.Resource.artsharehubLogo,
+                contentScale = ContentScale.FillWidth,
+                contentDescription = null,
+            )
+            Spacer(Modifier.width(15.dp))
+            Text(
+                text = buildAnnotatedString {
+                    append("개인 프로젝트 - 공연전시나눔터")
+                    append("   ")
+                    withLink(
+                        LinkAnnotation.Url(
+                            url = "https://art-share-hub.web.app",
+                            styles = TextLinkStyles(
+                                style = SpanStyle(
+                                    color = Color(0xFF2563EB),
+                                    textDecoration = TextDecoration.Underline,
+                                ),
+                            ),
+                        )
+                    ) {
+                        append("https://art-share-hub.web.app")
+                    }
+                },
+                style = Design.Text.baseStyle.copy(
+                    fontSize = 16.sp,
+                    color = Design.Color.black,
+                ),
+            )
+        }
+        Spacer(Modifier.height(15.dp))
+        FlowRow(
+            modifier = Modifier.fillMaxWidth(),
+            maxItemsInEachRow = 1,
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            listOf(
+                Design.Resource.artsharehubScreenshot0,
+                Design.Resource.artsharehubScreenshot1,
+                Design.Resource.artsharehubScreenshot2,
+                Design.Resource.artsharehubScreenshot3,
+                Design.Resource.artsharehubScreenshot4,
+                Design.Resource.artsharehubScreenshot5,
+                Design.Resource.artsharehubScreenshot6,
+                Design.Resource.artsharehubScreenshot7,
+            ).forEach { painter ->
+                Image(
+                    modifier = Modifier.weight(1f),
+                    painter = painter,
+                    contentScale = ContentScale.FillWidth,
+                    contentDescription = null,
+                )
+            }
+        }
+        Spacer(Modifier.height(15.dp))
+        Text(
+            text = buildAnnotatedString {
+                append(
+                    """
+                        Kotlin Multiplatform(KMP), Compose Multiplatform(Web), Android(Compose), Firebase(Auth/Firestore/Functions/Storage/Analytics), Google Sign-In, Naver Map JS/Geocoding
+                        
+                        - 멀티모듈 구조: app(KMP Web UI), adminapp(Android 관리자 앱), data(공유 모델/Firebase 래퍼), functions(Firebase Cloud Functions)
+                        - data 모듈에서 Firebase 초기화 및 인증 상태 Flow 관리, Firestore 실시간 구독으로 도메인 데이터 동기화
+                        - Cloud Functions 호출 래퍼 구성 및 서버 기능 구현: 공연 등록/수정/삭제, 결제 정보 upsert, 포인트 지급, 주소 지오코딩, 사용자 생성/삭제 트리거
+                        - Naver Map JS SDK 연동: 공연 위치 마커 표시, 포커스 이동, 리스트-지도 연동 모달 구현
+                        - 공연 목록/상세/관리, 포인트 충전/내역, 대시보드/마이페이지 등 화면 구성
                     """.trimIndent()
                 )
             },

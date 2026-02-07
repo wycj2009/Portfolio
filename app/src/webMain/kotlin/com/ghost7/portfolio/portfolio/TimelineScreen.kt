@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.DpRect
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.coerceAtMost
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import com.ghost7.portfolio.portfolio.Design.Color.a30
@@ -348,7 +349,10 @@ fun TimelineScreen() {
                             )
                             .onGloballyPositioned {
                                 contentWidth = with(density) { it.size.width.toDp() }
-                                contentHeight = with(density) { it.size.height.toDp() }
+                                contentHeight = min(
+                                    with(density) { it.size.height.toDp() },
+                                    with(density) { scrollState.viewportSize.toDp() },
+                                )
                             }
                             .padding(horizontal = 15.dp, vertical = 15.dp),
                     ) {

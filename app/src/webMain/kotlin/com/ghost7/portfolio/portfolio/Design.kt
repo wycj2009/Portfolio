@@ -10,6 +10,14 @@ import org.jetbrains.compose.resources.painterResource
 import portfolio.app.generated.resources.NotoSansKR_Medium
 import portfolio.app.generated.resources.Res
 import portfolio.app.generated.resources.artsharehub_logo
+import portfolio.app.generated.resources.artsharehub_screenshot_0
+import portfolio.app.generated.resources.artsharehub_screenshot_1
+import portfolio.app.generated.resources.artsharehub_screenshot_2
+import portfolio.app.generated.resources.artsharehub_screenshot_3
+import portfolio.app.generated.resources.artsharehub_screenshot_4
+import portfolio.app.generated.resources.artsharehub_screenshot_5
+import portfolio.app.generated.resources.artsharehub_screenshot_6
+import portfolio.app.generated.resources.artsharehub_screenshot_7
 import portfolio.app.generated.resources.chaintodo_logo
 import portfolio.app.generated.resources.chaintodo_screenshot_0
 import portfolio.app.generated.resources.chaintodo_screenshot_1
@@ -152,5 +160,13 @@ object Design {
         val chaintodoScreenshot4: Painter @Composable get() = painterResource(Res.drawable.chaintodo_screenshot_4)
         val kananaLogo: Painter @Composable get() = painterResource(Res.drawable.kanana_logo)
         val artsharehubLogo: Painter @Composable get() = painterResource(Res.drawable.artsharehub_logo)
+        val artsharehubScreenshot0: Painter @Composable get() = painterResource(Res.drawable.artsharehub_screenshot_0)
+        val artsharehubScreenshot1: Painter @Composable get() = painterResource(Res.drawable.artsharehub_screenshot_1)
+        val artsharehubScreenshot2: Painter @Composable get() = painterResource(Res.drawable.artsharehub_screenshot_2)
+        val artsharehubScreenshot3: Painter @Composable get() = painterResource(Res.drawable.artsharehub_screenshot_3)
+        val artsharehubScreenshot4: Painter @Composable get() = painterResource(Res.drawable.artsharehub_screenshot_4)
+        val artsharehubScreenshot5: Painter @Composable get() = painterResource(Res.drawable.artsharehub_screenshot_5)
+        val artsharehubScreenshot6: Painter @Composable get() = painterResource(Res.drawable.artsharehub_screenshot_6)
+        val artsharehubScreenshot7: Painter @Composable get() = painterResource(Res.drawable.artsharehub_screenshot_7)
     }
 }
