@@ -16,6 +16,14 @@ import portfolio.app.generated.resources.growskills_logo
 import portfolio.app.generated.resources.kakaotalk_logo
 import portfolio.app.generated.resources.kanana_logo
 import portfolio.app.generated.resources.lifetime_logo
+import portfolio.app.generated.resources.lifetime_screenshot_0
+import portfolio.app.generated.resources.lifetime_screenshot_1
+import portfolio.app.generated.resources.lifetime_screenshot_2
+import portfolio.app.generated.resources.lifetime_screenshot_3
+import portfolio.app.generated.resources.lifetime_screenshot_4
+import portfolio.app.generated.resources.lifetime_screenshot_5
+import portfolio.app.generated.resources.lifetime_screenshot_6
+import portfolio.app.generated.resources.lifetime_screenshot_7
 import portfolio.app.generated.resources.wifion_logo
 
 object Design {
@@ -62,8 +70,16 @@ object Design {
             @Composable get() = TextStyle(fontFamily = FontFamily(Font(Res.font.NotoSansKR_Medium)))
     }
 
-    object Icon {
+    object Resource {
         val lifetimeLogo: Painter @Composable get() = painterResource(Res.drawable.lifetime_logo)
+        val lifetimeScreenshot0: Painter @Composable get() = painterResource(Res.drawable.lifetime_screenshot_0)
+        val lifetimeScreenshot1: Painter @Composable get() = painterResource(Res.drawable.lifetime_screenshot_1)
+        val lifetimeScreenshot2: Painter @Composable get() = painterResource(Res.drawable.lifetime_screenshot_2)
+        val lifetimeScreenshot3: Painter @Composable get() = painterResource(Res.drawable.lifetime_screenshot_3)
+        val lifetimeScreenshot4: Painter @Composable get() = painterResource(Res.drawable.lifetime_screenshot_4)
+        val lifetimeScreenshot5: Painter @Composable get() = painterResource(Res.drawable.lifetime_screenshot_5)
+        val lifetimeScreenshot6: Painter @Composable get() = painterResource(Res.drawable.lifetime_screenshot_6)
+        val lifetimeScreenshot7: Painter @Composable get() = painterResource(Res.drawable.lifetime_screenshot_7)
         val growskillsLogo: Painter @Composable get() = painterResource(Res.drawable.growskills_logo)
         val wifionLogo: Painter @Composable get() = painterResource(Res.drawable.wifion_logo)
         val dietofhellLogo: Painter @Composable get() = painterResource(Res.drawable.dietofhell_logo)
