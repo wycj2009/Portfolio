@@ -102,7 +102,7 @@ private fun lifetimeContent() {
                         append("개인 프로젝트 - 라이프타임")
                     }
                     appendLine()
-                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                    withStyle(SpanStyle(color = Design.Color.gray700, fontSize = 13.sp)) {
                         append("2017.10 ~ 2018.5")
                     }
                 },
@@ -179,7 +179,7 @@ private fun growskillsContent() {
                         append("개인 프로젝트 - 스킬 키우기")
                     }
                     appendLine()
-                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                    withStyle(SpanStyle(color = Design.Color.gray700, fontSize = 13.sp)) {
                         append("2019.5 ~ 2020.5")
                     }
                 },
@@ -254,7 +254,7 @@ private fun wifionContent() {
                         append("넥스컨텔레컴 - 와이파이온")
                     }
                     appendLine()
-                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                    withStyle(SpanStyle(color = Design.Color.gray700, fontSize = 13.sp)) {
                         append("2020.8 ~ 2021.8")
                     }
                 },
@@ -332,7 +332,7 @@ private fun dietofhellContent() {
                         append("개인 프로젝트 - 지옥의 다이어트")
                     }
                     appendLine()
-                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                    withStyle(SpanStyle(color = Design.Color.gray700, fontSize = 13.sp)) {
                         append("2021.3 ~ 2021.5")
                     }
                 },
@@ -408,7 +408,7 @@ private fun kakaotalkContent() {
                         append("카카오 - 카카오톡")
                     }
                     appendLine()
-                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                    withStyle(SpanStyle(color = Design.Color.gray700, fontSize = 13.sp)) {
                         append("2021.10 ~ 2024.6")
                     }
                 },
@@ -564,7 +564,7 @@ private fun chaintodoContent() {
                         append("Google Play")
                     }
                     appendLine()
-                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                    withStyle(SpanStyle(color = Design.Color.gray700, fontSize = 13.sp)) {
                         append("2022.8 ~ 2022.11")
                     }
                 },
@@ -652,7 +652,7 @@ private fun kananaContent() {
                         append("Google Play")
                     }
                     appendLine()
-                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                    withStyle(SpanStyle(color = Design.Color.gray700, fontSize = 13.sp)) {
                         append("2024.6 ~ 2026.2")
                     }
                 },
@@ -808,7 +808,7 @@ private fun artsharehubContent() {
                         append("https://art-share-hub.web.app")
                     }
                     appendLine()
-                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                    withStyle(SpanStyle(color = Design.Color.gray700, fontSize = 13.sp)) {
                         append("2025.12 ~ ")
                     }
                 },
