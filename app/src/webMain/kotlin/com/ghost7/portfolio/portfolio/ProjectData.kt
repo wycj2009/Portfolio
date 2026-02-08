@@ -24,6 +24,7 @@ import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.datetime.LocalDate
@@ -97,12 +98,15 @@ private fun lifetimeContent() {
             Spacer(Modifier.width(15.dp))
             Text(
                 text = buildAnnotatedString {
-                    append("개인 프로젝트 - 라이프타임")
+                    withStyle(SpanStyle(color = Design.Color.black, fontSize = 16.sp)) {
+                        append("개인 프로젝트 - 라이프타임")
+                    }
+                    appendLine()
+                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                        append("2017.10 ~ 2018.5")
+                    }
                 },
-                style = Design.Text.baseStyle.copy(
-                    fontSize = 16.sp,
-                    color = Design.Color.black,
-                ),
+                style = Design.Text.baseStyle,
             )
         }
         Spacer(Modifier.height(15.dp))
@@ -171,12 +175,15 @@ private fun growskillsContent() {
             Spacer(Modifier.width(15.dp))
             Text(
                 text = buildAnnotatedString {
-                    append("개인 프로젝트 - 스킬 키우기")
+                    withStyle(SpanStyle(color = Design.Color.black, fontSize = 16.sp)) {
+                        append("개인 프로젝트 - 스킬 키우기")
+                    }
+                    appendLine()
+                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                        append("2019.5 ~ 2020.5")
+                    }
                 },
-                style = Design.Text.baseStyle.copy(
-                    fontSize = 16.sp,
-                    color = Design.Color.black,
-                ),
+                style = Design.Text.baseStyle,
             )
         }
         Spacer(Modifier.height(15.dp))
@@ -243,12 +250,15 @@ private fun wifionContent() {
             Spacer(Modifier.width(15.dp))
             Text(
                 text = buildAnnotatedString {
-                    append("넥스컨텔레컴 - 와이파이온")
+                    withStyle(SpanStyle(color = Design.Color.black, fontSize = 16.sp)) {
+                        append("넥스컨텔레컴 - 와이파이온")
+                    }
+                    appendLine()
+                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                        append("2020.8 ~ 2021.8")
+                    }
                 },
-                style = Design.Text.baseStyle.copy(
-                    fontSize = 16.sp,
-                    color = Design.Color.black,
-                ),
+                style = Design.Text.baseStyle,
             )
         }
         Spacer(Modifier.height(15.dp))
@@ -318,12 +328,15 @@ private fun dietofhellContent() {
             Spacer(Modifier.width(15.dp))
             Text(
                 text = buildAnnotatedString {
-                    append("개인 프로젝트 - 지옥의 다이어트")
+                    withStyle(SpanStyle(color = Design.Color.black, fontSize = 16.sp)) {
+                        append("개인 프로젝트 - 지옥의 다이어트")
+                    }
+                    appendLine()
+                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                        append("2021.3 ~ 2021.5")
+                    }
                 },
-                style = Design.Text.baseStyle.copy(
-                    fontSize = 16.sp,
-                    color = Design.Color.black,
-                ),
+                style = Design.Text.baseStyle,
             )
         }
         Spacer(Modifier.height(15.dp))
@@ -391,12 +404,15 @@ private fun kakaotalkContent() {
             Spacer(Modifier.width(15.dp))
             Text(
                 text = buildAnnotatedString {
-                    append("카카오 - 카카오톡")
+                    withStyle(SpanStyle(color = Design.Color.black, fontSize = 16.sp)) {
+                        append("카카오 - 카카오톡")
+                    }
+                    appendLine()
+                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                        append("2021.10 ~ 2024.6")
+                    }
                 },
-                style = Design.Text.baseStyle.copy(
-                    fontSize = 16.sp,
-                    color = Design.Color.black,
-                ),
+                style = Design.Text.baseStyle,
             )
         }
         Spacer(Modifier.height(15.dp))
@@ -530,7 +546,9 @@ private fun chaintodoContent() {
             Spacer(Modifier.width(15.dp))
             Text(
                 text = buildAnnotatedString {
-                    append("개인 프로젝트 - 체인 투두")
+                    withStyle(SpanStyle(color = Design.Color.black, fontSize = 16.sp)) {
+                        append("개인 프로젝트 - 체인 투두")
+                    }
                     append("   ")
                     withLink(
                         LinkAnnotation.Url(
@@ -545,11 +563,12 @@ private fun chaintodoContent() {
                     ) {
                         append("Google Play")
                     }
+                    appendLine()
+                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                        append("2022.8 ~ 2022.11")
+                    }
                 },
-                style = Design.Text.baseStyle.copy(
-                    fontSize = 16.sp,
-                    color = Design.Color.black,
-                ),
+                style = Design.Text.baseStyle,
             )
         }
         Spacer(Modifier.height(15.dp))
@@ -615,7 +634,9 @@ private fun kananaContent() {
             Spacer(Modifier.width(15.dp))
             Text(
                 text = buildAnnotatedString {
-                    append("카카오 - 카나나")
+                    withStyle(SpanStyle(color = Design.Color.black, fontSize = 16.sp)) {
+                        append("카카오 - 카나나")
+                    }
                     append("   ")
                     withLink(
                         LinkAnnotation.Url(
@@ -630,11 +651,12 @@ private fun kananaContent() {
                     ) {
                         append("Google Play")
                     }
+                    appendLine()
+                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                        append("2024.6 ~ 2026.2")
+                    }
                 },
-                style = Design.Text.baseStyle.copy(
-                    fontSize = 16.sp,
-                    color = Design.Color.black,
-                ),
+                style = Design.Text.baseStyle,
             )
         }
         Spacer(Modifier.height(15.dp))
@@ -768,7 +790,9 @@ private fun artsharehubContent() {
             Spacer(Modifier.width(15.dp))
             Text(
                 text = buildAnnotatedString {
-                    append("개인 프로젝트 - 공연전시나눔터")
+                    withStyle(SpanStyle(color = Design.Color.black, fontSize = 16.sp)) {
+                        append("개인 프로젝트 - 공연전시나눔터")
+                    }
                     append("   ")
                     withLink(
                         LinkAnnotation.Url(
@@ -783,11 +807,12 @@ private fun artsharehubContent() {
                     ) {
                         append("https://art-share-hub.web.app")
                     }
+                    appendLine()
+                    withStyle(SpanStyle(color = Design.Color.gray600, fontSize = 13.sp)) {
+                        append("2025.12 ~ ")
+                    }
                 },
-                style = Design.Text.baseStyle.copy(
-                    fontSize = 16.sp,
-                    color = Design.Color.black,
-                ),
+                style = Design.Text.baseStyle,
             )
         }
         Spacer(Modifier.height(15.dp))
